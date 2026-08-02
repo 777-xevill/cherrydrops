@@ -81,6 +81,11 @@ export const PACKAGES = [
     perks: ['Everything in Monthly', 'Group classes included', 'Monthly progress review', 'Nutrition guidance'],
   },
   {
+    id: 'half-yearly', name: 'Half-Yearly', months: 6, price: 15000, popular: false,
+    blurb: 'Half a year, fully committed.',
+    perks: ['Everything in Quarterly', '1 personal training session', 'Priority trainer booking'],
+  },
+  {
     id: 'yearly', name: 'Yearly', months: 12, price: 25000, popular: false,
     blurb: 'Best value for the committed.',
     perks: ['Everything in Quarterly', '2 personal training sessions', 'Body composition tracking', 'Guest passes'],
@@ -131,7 +136,7 @@ export const TRAINERS = [
     capacity: 12, booked: 12,
   },
   {
-    id: 't-imran', name: 'Imran Kabir', branchId: 'sgc', gender: 'male',
+    id: 't-imran', name: 'Sohel Rana', branchId: 'sgc', gender: 'male',
     title: 'Coach — Hypertrophy', experience: 7, rating: 4.7, ratePerMonth: 4200,
     specialities: ['Bodybuilding prep', 'Hypertrophy blocks', 'Peak week'],
     certifications: ['ISSA-CPT', 'Bodybuilding Prep Specialist'],
@@ -140,7 +145,7 @@ export const TRAINERS = [
     capacity: 10, booked: 6,
   },
   {
-    id: 't-nusrat', name: 'Nusrat Jahan', branchId: 'sgc', gender: 'female',
+    id: 't-nusrat', name: 'Nusrat Sultana', branchId: 'sgc', gender: 'female',
     title: 'Coach — Group & Conditioning', experience: 5, rating: 4.8, ratePerMonth: 3600,
     specialities: ['HIIT', 'Zumba & aerobics', 'Mobility'],
     certifications: ['ACSM-CPT', 'Zumba B1'],
@@ -277,59 +282,64 @@ const STOCK_ITEMS = [
 
 /* ---------------- generators ---------------- */
 
-const FIRST_M = ['Tanvir', 'Sabbir', 'Mahin', 'Rifat', 'Nayeem', 'Zubair', 'Fahim', 'Ashraf', 'Rezaul', 'Shakib', 'Adnan', 'Mizanur', 'Hasibul', 'Tousif', 'Rayhan'];
-const FIRST_F = ['Tasnim', 'Farhana', 'Sumaiya', 'Nabila', 'Ishrat', 'Rubaiya', 'Marzia', 'Anika', 'Sadia', 'Lamia', 'Tahmina', 'Nafisa'];
-const LAST = ['Ahmed', 'Rahman', 'Islam', 'Hossain', 'Karim', 'Chowdhury', 'Siddique', 'Alam', 'Bhuiyan', 'Sarker', 'Mollah', 'Haque'];
-
 const GOALS = ['Fat loss', 'Muscle gain', 'General fitness', 'Strength', 'Recomposition'];
 
+/** Duration string from the workbook -> internal package id. */
+const DURATION_TO_PACKAGE = {
+  '1 Month': 'monthly',
+  '3 Months': 'quarterly',
+  '6 Months': 'half-yearly',
+  '12 Months': 'yearly',
+};
+
+/**
+ * The real roster, transcribed from Gym_Membership_Demo.xlsx (sheet
+ * "Members"): Member Name, Member ID, Membership Date, Membership
+ * Expire Date, Package Duration. Gender is inferred from the given
+ * name (needed for the BMR calculation in the diet-analysis feature)
+ * and isn't in the source file. Kept as a static list rather than a
+ * parsed-at-runtime import so the site stays a dependency-free static
+ * page — see the checked-in .xlsx for the source of truth.
+ */
+const MEMBER_ROSTER = [
+  { id: 'GC-1001', name: 'Rahim Uddin', gender: 'male', membershipDate: '2026-01-15', expiryDate: '2026-04-15', duration: '3 Months' },
+  { id: 'GC-1002', name: 'Ayesha Karim', gender: 'female', membershipDate: '2026-01-22', expiryDate: '2026-07-21', duration: '6 Months' },
+  { id: 'GC-1003', name: 'Tanvir Ahmed', gender: 'male', membershipDate: '2026-01-29', expiryDate: '2026-02-28', duration: '1 Month' },
+  { id: 'GC-1004', name: 'Nusrat Jahan', gender: 'female', membershipDate: '2026-02-05', expiryDate: '2027-02-05', duration: '12 Months' },
+  { id: 'GC-1005', name: 'Shakil Hasan', gender: 'male', membershipDate: '2026-02-12', expiryDate: '2026-05-13', duration: '3 Months' },
+  { id: 'GC-1006', name: 'Farzana Akter', gender: 'female', membershipDate: '2026-02-19', expiryDate: '2026-08-18', duration: '6 Months' },
+  { id: 'GC-1007', name: 'Mahmudul Islam', gender: 'male', membershipDate: '2026-02-26', expiryDate: '2026-03-28', duration: '1 Month' },
+  { id: 'GC-1008', name: 'Sadia Rahman', gender: 'female', membershipDate: '2026-03-05', expiryDate: '2027-03-05', duration: '12 Months' },
+  { id: 'GC-1009', name: 'Imran Kabir', gender: 'male', membershipDate: '2026-03-12', expiryDate: '2026-06-10', duration: '3 Months' },
+  { id: 'GC-1010', name: 'Sabrina Yasmin', gender: 'female', membershipDate: '2026-03-19', expiryDate: '2026-09-15', duration: '6 Months' },
+];
+
 function buildMembers(rand) {
-  const now = today();
-  const members = [];
-  const total = 34;
-
-  for (let i = 0; i < total; i += 1) {
-    const isFemale = rand() < 0.34;
-    const first = isFemale ? FIRST_F[Math.floor(rand() * FIRST_F.length)] : FIRST_M[Math.floor(rand() * FIRST_M.length)];
-    const last = LAST[Math.floor(rand() * LAST.length)];
-    const branch = rand() < 0.63 ? 'bns' : 'sgc';
-    const pkg = rand() < 0.42 ? PACKAGES[0] : rand() < 0.75 ? PACKAGES[1] : PACKAGES[2];
-
-    // joined between 2 and 30 months ago
-    const tenureMonths = 2 + Math.floor(rand() * 28);
-    const joined = addMonths(now, -tenureMonths);
-
-    /* Spread expiry deliberately across the alert bands so the staff
-       console has something real to triage: expired, <7d, <14d, <30d, safe. */
-    const bucket = rand();
-    let daysLeft;
-    if (bucket < 0.10) daysLeft = -1 - Math.floor(rand() * 26);        // lapsed
-    else if (bucket < 0.24) daysLeft = Math.floor(rand() * 7);          // critical
-    else if (bucket < 0.40) daysLeft = 7 + Math.floor(rand() * 7);      // serious
-    else if (bucket < 0.58) daysLeft = 14 + Math.floor(rand() * 16);    // warning
-    else daysLeft = 31 + Math.floor(rand() * 220);                      // healthy
-
-    const expires = addDays(now, daysLeft);
-    const startedCurrent = addMonths(expires, -pkg.months);
+  return MEMBER_ROSTER.map((row, i) => {
+    const isFemale = row.gender === 'female';
+    const branch = rand() < 0.6 ? 'bns' : 'sgc';
+    const [first, ...rest] = row.name.split(' ');
+    const last = rest.join(' ');
 
     const heightCm = isFemale ? 150 + Math.floor(rand() * 18) : 162 + Math.floor(rand() * 20);
     const weightKg = Math.round((isFemale ? 48 + rand() * 32 : 58 + rand() * 44) * 10) / 10;
-
     const phone = `01${[6, 7, 8, 9][Math.floor(rand() * 4)]}${String(Math.floor(rand() * 100000000)).padStart(8, '0')}`;
     const trainerPool = TRAINERS.filter((t) => t.branchId === branch);
-    const hasTrainer = rand() < 0.42;
+    const hasTrainer = rand() < 0.5;
 
-    members.push({
-      id: `CD-${String(1000 + i)}`,
-      name: `${first} ${last}`,
-      gender: isFemale ? 'female' : 'male',
-      email: `${first.toLowerCase()}.${last.toLowerCase()}${i}@example.com`,
+    return {
+      id: row.id,
+      name: row.name,
+      gender: row.gender,
+      email: `${first.toLowerCase()}.${last.toLowerCase().replace(/\s+/g, '')}${i}@example.com`,
       phone,
       branchId: branch,
-      packageId: pkg.id,
-      joined: iso(joined),
-      startDate: iso(startedCurrent),
-      expiry: iso(expires),
+      packageId: DURATION_TO_PACKAGE[row.duration],
+      // Membership Date is this member's join date and their current
+      // period's start alike — the workbook has no separate history.
+      joined: row.membershipDate,
+      startDate: row.membershipDate,
+      expiry: row.expiryDate,
       autoRenew: rand() < 0.3,
       goal: GOALS[Math.floor(rand() * GOALS.length)],
       heightCm,
@@ -340,9 +350,8 @@ function buildMembers(rand) {
       // last 6 check-in counts, most recent last
       attendance: Array.from({ length: 6 }, () => 6 + Math.floor(rand() * 18)),
       notes: '',
-    });
-  }
-  return members;
+    };
+  });
 }
 
 function buildPayments(members, rand) {

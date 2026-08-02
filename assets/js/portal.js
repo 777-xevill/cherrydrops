@@ -64,10 +64,10 @@ function renderLogin() {
 
         <form id="login-form" class="card p-7">
           <label class="label" for="identifier">Member ID, phone or email</label>
-          <input class="input" id="identifier" name="identifier" placeholder="CD-1000, 016XXXXXXXX or you@example.com" autocomplete="username" required>
+          <input class="input" id="identifier" name="identifier" placeholder="GC-1001, 016XXXXXXXX or you@example.com" autocomplete="username" required>
           <p id="login-err" class="err hidden"></p>
           <button type="submit" class="btn btn-primary w-full mt-5">Sign In</button>
-          <p class="hint mt-4">Demo portal — no password. Try Member ID <strong class="text-white">CD-1000</strong>, or any phone / email from the roster.</p>
+          <p class="hint mt-4">Demo portal — no password. Try Member ID <strong class="text-white">GC-1001</strong>, or any phone / email from the roster.</p>
         </form>
 
         <p class="text-center mt-6">
@@ -324,11 +324,11 @@ function viewPackages(view, member) {
       </div>
     ` : ''}
 
-    <div class="grid gap-5 lg:grid-cols-3">
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
       ${store.packages().map((p) => {
         const current = p.id === member.packageId;
         return html`
-        <article class="card p-7 ${p.popular ? '!border-crimson/45' : ''}">
+        <article class="card p-6 ${p.popular ? '!border-crimson/45' : ''}">
           <div class="flex items-center justify-between gap-3 min-h-[28px]">
             <p class="eyebrow !tracking-[.2em] ${p.popular ? '!text-crimson-lite' : ''}">${esc(p.name)}</p>
             ${p.popular ? '<span class="font-display text-[.6rem] uppercase tracking-[.18em] bg-crimson text-white px-2 py-0.5">Popular</span>' : ''}
