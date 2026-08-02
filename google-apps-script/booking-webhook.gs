@@ -23,6 +23,7 @@ function doPost(e) {
 
   sheet.appendRow([
     new Date(),
+    '', // Member ID — front desk fills this in once they assign one
     data.name || '',
     data.phone || '',
     data.email || '',
@@ -39,13 +40,19 @@ function doPost(e) {
 }
 
 function getBookingsSheet() {
+  // Always the spreadsheet's first tab, whatever it's named — avoids a
+  // mismatch if the tab isn't literally called "Bookings" (e.g. a fresh
+  // spreadsheet's default "Sheet1"), which would otherwise make this
+  // silently create a second, empty tab instead of using the real one.
   const ss = SpreadsheetApp.getActiveSpreadsheet();
-  let sheet = ss.getSheetByName('Bookings');
-  if (!sheet) {
-    sheet = ss.insertSheet('Bookings');
-    sheet.appendRow(['Received At', 'Name', 'Phone', 'Email', 'Branch', 'Package', 'Status']);
+  const sheet = ss.getSheets()[0];
+  if (sheet.getLastRow() === 0) {
+    sheet.appendRow(['Received At', 'Member ID', 'Name', 'Phone', 'Email', 'Branch', 'Package', 'Status']);
     sheet.setFrozenRows(1);
   }
+  // Phone column stays plain text, otherwise Sheets reads it as a
+  // number and drops the leading 0 (e.g. 01712345001 -> 1712345001).
+  sheet.getRange('D:D').setNumberFormat('@');
   return sheet;
 }
 
@@ -61,6 +68,6 @@ function notifyOwner(data) {
       `Email: ${data.email || '-'}\n` +
       `Branch: ${data.branch || '-'}\n` +
       `Package: ${data.package || '-'}\n\n` +
-      'Open the "Bookings" sheet to confirm it and update its status.',
+      'Open the spreadsheet to confirm it and update its status.',
   });
 }
