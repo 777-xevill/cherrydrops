@@ -64,10 +64,10 @@ function renderLogin() {
 
         <form id="login-form" class="card p-7">
           <label class="label" for="identifier">Member ID, phone or email</label>
-          <input class="input" id="identifier" name="identifier" placeholder="GC-1001, 016XXXXXXXX or you@example.com" autocomplete="username" required>
+          <input class="input" id="identifier" name="identifier" placeholder="Enter Member id" autocomplete="username" required>
           <p id="login-err" class="err hidden"></p>
           <button type="submit" class="btn btn-primary w-full mt-5">Sign In</button>
-          <p class="hint mt-4">Demo portal — no password. Try Member ID <strong class="text-white">GC-1001</strong>, or any phone / email from the roster.</p>
+          <p class="hint mt-4">Enter your Member ID, phone number, or email to access your account.</p>
         </form>
 
         <p class="text-center mt-6">
