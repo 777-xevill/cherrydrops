@@ -14,7 +14,13 @@
 import { buildSeed, PACKAGES, RENEW_OFFERS, PAYMENT_METHODS } from './seed.js';
 import { iso, addMonths, addDays, today, daysBetween, monthKey, sum, groupBy, uid } from './util.js';
 
-const KEY = 'cherrydrops.system.v3';
+// Bump BOTH the key suffix and the `version` check below whenever
+// buildSeed()'s shape or content changes — otherwise a returning
+// visitor's stale localStorage silently wins over the new seed data
+// (this bit us once: the member roster changed but the version didn't,
+// so existing visitors kept seeing the old members and every "new"
+// login failed).
+const KEY = 'cherrydrops.system.v4';
 
 let state = null;
 const listeners = new Set();
@@ -26,7 +32,7 @@ function load() {
     const raw = localStorage.getItem(KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
-      if (parsed && parsed.version === 3) return parsed;
+      if (parsed && parsed.version === 4) return parsed;
     }
   } catch {
     /* corrupt or unavailable storage — fall through to a fresh seed */

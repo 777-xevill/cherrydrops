@@ -479,7 +479,7 @@ export function buildSeed() {
   const inventory = buildInventory(rand);
 
   return {
-    version: 3,
+    version: 4,
     generatedAt: new Date().toISOString(),
     branches: BRANCHES,
     packages: PACKAGES,
