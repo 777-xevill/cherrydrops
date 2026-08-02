@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Staff Console — Cherry Drops Fitness &amp; Life Style 3.0</title>
+<meta name="description" content="Cherry Drops staff console — member tracking and subscription-ending alerts.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="icon" href="brand_assets/brand%20logo.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        crimson:  { DEFAULT: '#CC1122', deep: '#8E0B17', lift: '#E8283A', lite: '#FF7480' },
+        bronze:   { DEFAULT: '#C9A98A', light: '#E4CDB4', dim: '#8A745C' },
+        charcoal: '#1A1A1A', steel: '#444444',
+        ink:      { DEFAULT: '#0B0B0C', soft: '#121214', lift: '#17171A' },
+      },
+      fontFamily: {
+        display: ['"Barlow Condensed"', 'sans-serif'],
+        body: ['Barlow', 'sans-serif'],
+      },
+    },
+  },
+};
+</script>
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body class="antialiased field grain">
+<div id="app"></div>
+<script type="module" src="assets/js/staff.js"></script>
+</body>
+</html>

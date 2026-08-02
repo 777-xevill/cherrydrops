@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry Drops Fitness &amp; Life Style 3.0 — Impossible Happens | Uttara, Dhaka</title>
+<meta name="description" content="Cherry Drops Fitness &amp; Life Style 3.0 — a premium air-conditioned gym on the 10th floor of BNS Centre, Sector-7, Uttara, Dhaka. Two locations in Uttara. Strength, cardio, personal training, prayer room and spotless facilities.">
+<meta name="theme-color" content="#0B0B0C">
+<link rel="icon" href="brand_assets/brand%20logo.jpg">
+<link rel="apple-touch-icon" href="brand_assets/brand%20logo.jpg">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cherry Drops Fitness &amp; Life Style 3.0 — Impossible Happens">
+<meta property="og:description" content="A full-floor, air-conditioned gym on the 10th floor of BNS Centre, Sector-7, Uttara, Dhaka.">
+<meta property="og:image" content="brand_assets/brand%20logo.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;1,700;1,800&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        crimson:  { DEFAULT: '#CC1122', deep: '#8E0B17', lift: '#E8283A', lite: '#FF7480' },
+        bronze:   { DEFAULT: '#C9A98A', light: '#E4CDB4', dim: '#8A745C' },
+        charcoal: '#1A1A1A',
+        steel:    '#444444',
+        ink:      { DEFAULT: '#0B0B0C', soft: '#121214', lift: '#17171A' },
+      },
+      fontFamily: {
+        display: ['"Barlow Condensed"', 'sans-serif'],
+        body: ['Barlow', 'sans-serif'],
+      },
+    },
+  },
+};
+</script>
+
+<style>
+  :root{
+    --crimson:#CC1122; --crimson-deep:#8E0B17; --crimson-lift:#E8283A;
+    --bronze:#C9A98A; --bronze-light:#E4CDB4; --bronze-dim:#8A745C;
+    --charcoal:#1A1A1A; --steel:#444444;
+    --ink:#0B0B0C; --ink-soft:#121214; --ink-lift:#17171A;
+
+    /* spacing scale — used deliberately, not ad-hoc */
+    --s-1:.5rem; --s-2:1rem; --s-3:1.5rem; --s-4:2rem;
+    --s-5:3rem; --s-6:4.5rem; --s-7:7rem; --s-8:10rem;
+
+    --ease-spring:cubic-bezier(.22,1,.36,1);
+    --ease-out:cubic-bezier(.16,1,.3,1);
+
+    /* layered, colour-tinted shadows */
+    --shadow-raise:
+      0 1px 1px rgba(0,0,0,.5),
+      0 8px 20px -8px rgba(0,0,0,.7),
+      0 24px 48px -24px rgba(204,17,34,.28);
+    --shadow-float:
+      0 2px 4px rgba(0,0,0,.55),
+      0 16px 32px -12px rgba(0,0,0,.75),
+      0 40px 80px -32px rgba(204,17,34,.34);
+  }
+
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    background:var(--ink);
+    color:#E9E6E2;
+    font-family:Barlow,sans-serif;
+    line-height:1.7;
+    overflow-x:hidden;
+    touch-action:manipulation;
+  }
+
+  h1,h2,h3,h4,.display{
+    font-family:"Barlow Condensed",sans-serif;
+    text-transform:uppercase;
+    line-height:.92;
+    letter-spacing:-.02em;
+    font-weight:800;
+  }
+
+  /* ---------- texture + light ---------- */
+  .grain::after{
+    content:""; position:absolute; inset:0; pointer-events:none; z-index:2;
+    opacity:.5; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.42'/%3E%3C/svg%3E");
+  }
+  .field{
+    position:relative;
+    background:
+      radial-gradient(120% 90% at 12% 0%, rgba(204,17,34,.16) 0%, transparent 58%),
+      radial-gradient(90% 80% at 92% 12%, rgba(201,169,138,.11) 0%, transparent 55%),
+      radial-gradient(140% 120% at 50% 100%, rgba(142,11,23,.16) 0%, transparent 62%),
+      var(--ink);
+  }
+  .hairline{ border-top:1px solid rgba(201,169,138,.14); }
+
+  /* ---------- type helpers ---------- */
+  .eyebrow{
+    font-family:"Barlow Condensed",sans-serif;
+    text-transform:uppercase; font-weight:700;
+    letter-spacing:.34em; font-size:.75rem; line-height:1.4;
+    color:var(--bronze);
+  }
+  .h-huge{ font-size:clamp(3rem,11vw,9.5rem); letter-spacing:-.035em; }
+
+  /* legibility over live footage — the hero sits on video, not a flat fill */
+  #top .eyebrow{ text-shadow:0 1px 12px rgba(0,0,0,.9), 0 0 3px rgba(0,0,0,.8); }
+  #top h1{ text-shadow:0 3px 28px rgba(0,0,0,.55); }
+  #top .lede{ text-shadow:0 1px 14px rgba(0,0,0,.85); }
+  .h-sec{ font-size:clamp(2.25rem,5.6vw,4.75rem); letter-spacing:-.03em; }
+  .h-card{ font-size:clamp(1.35rem,2.1vw,1.75rem); letter-spacing:-.01em; }
+  .lede{ font-size:clamp(1.02rem,1.25vw,1.18rem); color:#B8B2AB; }
+
+  .rule{
+    width:64px; height:3px; border-radius:99px;
+    background:linear-gradient(90deg,var(--crimson),var(--bronze));
+  }
+
+  /* gold foil text, echoing the emblem lettering */
+  .foil{
+    background:linear-gradient(96deg,#8A745C 0%,#E4CDB4 26%,#FFF6E9 42%,#C9A98A 62%,#8A745C 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .ember{
+    background:linear-gradient(96deg,#E8283A 0%,#CC1122 40%,#8E0B17 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+
+  /* ---------- surfaces (base -> elevated -> floating) ---------- */
+  .card{
+    position:relative; overflow:hidden; isolation:isolate;
+    background:linear-gradient(168deg,rgba(26,26,26,.94),rgba(11,11,12,.94));
+    border:1px solid rgba(201,169,138,.14);
+    box-shadow:var(--shadow-raise);
+    transition:transform .5s var(--ease-spring), border-color .35s var(--ease-out), box-shadow .5s var(--ease-out);
+  }
+  .card:hover{ transform:translateY(-6px); border-color:rgba(201,169,138,.34); box-shadow:var(--shadow-float); }
+  .card::before{
+    content:""; position:absolute; inset:0 0 auto 0; height:1px; z-index:3;
+    background:linear-gradient(90deg,transparent,rgba(201,169,138,.55),transparent);
+    opacity:.7;
+  }
+
+  /* ---------- image treatment ---------- */
+  .shot{ position:relative; overflow:hidden; isolation:isolate; background:var(--charcoal); }
+  .shot img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transform:scale(1.015);
+    transition:transform .8s var(--ease-spring), filter .6s var(--ease-out);
+    filter:saturate(.86) contrast(1.06);
+  }
+  .shot::after{  /* depth + brand tint */
+    content:""; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(to top,rgba(11,11,12,.82) 0%,rgba(11,11,12,.14) 46%,transparent 78%);
+  }
+  .shot::before{
+    content:""; position:absolute; inset:0; z-index:2; pointer-events:none;
+    background:linear-gradient(200deg,rgba(204,17,34,.16),transparent 55%);
+    mix-blend-mode:multiply;
+  }
+  .shot:hover img{ transform:scale(1.075); filter:saturate(1) contrast(1.08); }
+
+  /* ---------- controls ---------- */
+  .btn{
+    position:relative; display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+    min-height:52px; padding:0 1.9rem;
+    font-family:"Barlow Condensed",sans-serif; font-weight:700; text-transform:uppercase;
+    letter-spacing:.13em; font-size:1rem; cursor:pointer;
+    border:1px solid transparent; isolation:isolate; overflow:hidden;
+    transition:transform .3s var(--ease-spring), box-shadow .35s var(--ease-out),
+               background-color .3s var(--ease-out), color .3s var(--ease-out), border-color .3s var(--ease-out);
+  }
+  .btn:focus-visible{ outline:3px solid var(--bronze-light); outline-offset:3px; }
+  .btn:active{ transform:translateY(1px) scale(.985); }
+
+  .btn-primary{
+    color:#fff; background:linear-gradient(120deg,var(--crimson-lift),var(--crimson) 52%,var(--crimson-deep));
+    box-shadow:0 1px 0 rgba(255,255,255,.16) inset, 0 12px 30px -12px rgba(204,17,34,.85);
+  }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 1px 0 rgba(255,255,255,.2) inset, 0 20px 44px -14px rgba(204,17,34,.95); }
+
+  .btn-ghost{ color:var(--bronze-light); border-color:rgba(201,169,138,.4); background:rgba(201,169,138,.05); }
+  .btn-ghost:hover{ transform:translateY(-3px); border-color:var(--bronze); background:rgba(201,169,138,.13); color:#fff; }
+
+  a:focus-visible,button:focus-visible,summary:focus-visible{
+    outline:3px solid var(--bronze-light); outline-offset:3px; border-radius:2px;
+  }
+
+  .navlink{
+    position:relative; font-family:"Barlow Condensed",sans-serif; font-weight:600;
+    text-transform:uppercase; letter-spacing:.15em; font-size:.95rem; color:#C6C0B8;
+    padding:.5rem .25rem; transition:color .28s var(--ease-out);
+  }
+  .navlink::after{
+    content:""; position:absolute; left:0; right:0; bottom:0; height:2px;
+    background:linear-gradient(90deg,var(--crimson),var(--bronze));
+    transform:scaleX(0); transform-origin:left; transition:transform .38s var(--ease-spring);
+  }
+  .navlink:hover{ color:#fff; }
+  .navlink:hover::after,.navlink[aria-current="true"]::after{ transform:scaleX(1); }
+
+  /* ---------- marquee ---------- */
+  .marquee{ display:flex; width:max-content; animation:slide 34s linear infinite; will-change:transform; }
+  @keyframes slide{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  /* ---------- reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(26px); }
+  .reveal.in{ opacity:1; transform:none; transition:opacity .85s var(--ease-out), transform .85s var(--ease-spring); }
+
+  /* ---------- lightbox ---------- */
+  #lightbox{ opacity:0; pointer-events:none; transition:opacity .35s var(--ease-out); }
+  #lightbox.open{ opacity:1; pointer-events:auto; }
+  #lightbox img{ transform:scale(.96); transition:transform .45s var(--ease-spring); }
+  #lightbox.open img{ transform:scale(1); }
+
+  details[open] .chev{ transform:rotate(180deg); }
+  .chev{ transition:transform .35s var(--ease-spring); }
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
+    .reveal{ opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+</style>
+</head>
+
+<body class="antialiased">
+
+<a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:z-[100] focus:top-4 focus:left-4 focus:bg-crimson focus:text-white focus:px-5 focus:py-3 focus:font-display focus:uppercase focus:tracking-widest">Skip to content</a>
+
+<!-- ══════════ NAV ══════════ -->
+<header id="nav" class="fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,box-shadow] duration-500">
+  <div class="mx-auto max-w-[1400px] px-5 sm:px-8">
+    <div class="flex items-center justify-between gap-4 py-3.5">
+
+      <a href="#top" class="group flex items-center gap-3 shrink-0" aria-label="Cherry Drops Fitness and Life Style 3.0 — home">
+        <span class="relative block h-12 w-12 sm:h-[54px] sm:w-[54px] rounded-full overflow-hidden ring-1 ring-bronze/35 shadow-[0_8px_24px_-10px_rgba(204,17,34,.8)] transition-transform duration-500 group-hover:scale-105" style="transition-timing-function:var(--ease-spring)">
+          <img src="brand_assets/brand%20logo.jpg" alt="" class="h-full w-full object-cover scale-[1.06]">
+        </span>
+        <span class="hidden sm:block leading-none">
+          <span class="block font-display text-[1.32rem] font-extrabold tracking-[.02em] foil">CHERRY DROPS</span>
+          <span class="block font-display text-[.66rem] font-600 tracking-[.36em] text-bronze mt-1">FITNESS &amp; LIFE STYLE 3.0</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7" aria-label="Primary">
+        <a href="#about"     class="navlink">Gym</a>
+        <a href="#programs"  class="navlink">Programs</a>
+        <a href="#facility"  class="navlink">Facility</a>
+        <a href="#amenities" class="navlink">Amenities</a>
+        <a href="#pricing"   class="navlink">Membership</a>
+        <a href="#contact"   class="navlink">Visit</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <a href="tel:+8801610021342" class="btn btn-ghost hidden sm:inline-flex !min-h-[46px] !px-5 !text-[.86rem]">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+          01610-021342
+        </a>
+        <a href="portal.html" class="btn btn-ghost hidden md:inline-flex !min-h-[46px] !px-5 !text-[.86rem]">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+          Portal
+        </a>
+        <a href="#pricing" class="btn btn-primary !min-h-[46px] !px-5 !text-[.86rem]">Join Now</a>
+
+        <button id="menuBtn" type="button" class="lg:hidden grid place-items-center h-[46px] w-[46px] border border-bronze/35 text-bronze-light transition-colors duration-300 hover:bg-bronze/10" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="mobileMenu" class="lg:hidden hidden border-t border-bronze/15 bg-ink/97 backdrop-blur-xl">
+    <nav class="mx-auto max-w-[1400px] px-5 py-5 grid gap-1" aria-label="Mobile">
+      <a href="#about"     class="navlink py-3 text-lg">Gym</a>
+      <a href="#programs"  class="navlink py-3 text-lg">Programs</a>
+      <a href="#facility"  class="navlink py-3 text-lg">Facility</a>
+      <a href="#amenities" class="navlink py-3 text-lg">Amenities</a>
+      <a href="#pricing"   class="navlink py-3 text-lg">Membership</a>
+      <a href="#contact"   class="navlink py-3 text-lg">Visit</a>
+      <a href="portal.html" class="navlink py-3 text-lg">Member Portal</a>
+      <a href="tel:+8801610021342" class="btn btn-ghost mt-3">Call 01610-021342</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- ══════════ HERO ══════════ -->
+<section id="top" class="relative min-h-[100svh] flex items-end overflow-hidden grain">
+  <video class="absolute inset-0 h-full w-full object-cover" style="filter:brightness(1.18) contrast(1.02) saturate(1.04)" autoplay muted loop playsinline preload="metadata" poster="gympictures/gym3.jpg" aria-hidden="true" tabindex="-1">
+    <source src="gympictures/landing.mp4" type="video/mp4">
+  </video>
+
+  <!-- graded overlays: depth, brand tint, vignette -->
+  <div class="absolute inset-0 z-[1]" style="background:linear-gradient(to top,#0B0B0C 1%,rgba(11,11,12,.62) 30%,rgba(11,11,12,.16) 64%,rgba(11,11,12,.46) 100%)"></div>
+  <div class="absolute inset-0 z-[1] mix-blend-multiply" style="background:radial-gradient(90% 70% at 18% 78%,rgba(204,17,34,.34),transparent 62%)"></div>
+  <div class="absolute inset-0 z-[1]" style="background:radial-gradient(125% 105% at 50% 46%,transparent 52%,rgba(0,0,0,.5) 100%)"></div>
+  <!-- scrim under the nav so links stay readable over bright footage -->
+  <div class="absolute inset-x-0 top-0 h-40 z-[2] pointer-events-none" style="background:linear-gradient(to bottom,rgba(11,11,12,.82),rgba(11,11,12,.32) 55%,transparent)"></div>
+
+  <div class="relative z-[3] w-full mx-auto max-w-[1400px] px-5 sm:px-8 pb-14 sm:pb-20 pt-36">
+    <p class="eyebrow reveal">Uttara · Sector 7 · Dhaka</p>
+
+    <h1 class="h-huge mt-5 reveal" style="transition-delay:.07s">
+      <span class="block text-white">IMPOSSIBLE</span>
+      <span class="block ember">HAPPENS</span>
+    </h1>
+
+    <div class="mt-7 grid gap-8 lg:grid-cols-[minmax(0,42ch)_auto] lg:items-end reveal" style="transition-delay:.14s">
+      <p class="lede">
+        A full-floor strength and conditioning house on the 10th floor of BNS Centre —
+        air-conditioned, immaculately kept, and built for people who show up.
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <a href="#pricing" class="btn btn-primary">
+          Start Training
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#facility" class="btn btn-ghost">Tour the Floor</a>
+      </div>
+    </div>
+  </div>
+
+  <a href="#about" class="absolute bottom-6 right-5 sm:right-8 z-[3] hidden md:flex flex-col items-center gap-2 text-bronze hover:text-bronze-light transition-colors duration-300" aria-label="Scroll to gym introduction">
+    <span class="font-display text-[.66rem] tracking-[.34em] uppercase [writing-mode:vertical-rl]">Scroll</span>
+    <span class="block h-12 w-px bg-gradient-to-b from-bronze/70 to-transparent"></span>
+  </a>
+</section>
+
+<!-- ══════════ MARQUEE ══════════ -->
+<div class="relative overflow-hidden border-y border-bronze/15 bg-charcoal py-4" aria-hidden="true">
+  <div class="marquee items-center gap-8 whitespace-nowrap">
+    <div class="flex items-center gap-8 pr-8">
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] foil">IMPOSSIBLE HAPPENS</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] text-white/45">STRENGTH</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] foil">CARDIO &amp; HIIT</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] text-white/45">PERSONAL TRAINING</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] foil">LIFE STYLE 3.0</span><span class="text-crimson text-xl">✦</span>
+    </div>
+    <div class="flex items-center gap-8 pr-8">
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] foil">IMPOSSIBLE HAPPENS</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] text-white/45">STRENGTH</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] foil">CARDIO &amp; HIIT</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] text-white/45">PERSONAL TRAINING</span><span class="text-crimson text-xl">✦</span>
+      <span class="font-display text-2xl sm:text-3xl font-extrabold tracking-[.06em] foil">LIFE STYLE 3.0</span><span class="text-crimson text-xl">✦</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ABOUT ══════════ -->
+<section id="about" class="field grain relative py-[var(--s-7)]">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+    <div class="grid gap-[var(--s-5)] lg:grid-cols-2 lg:gap-[var(--s-6)] items-center">
+
+      <div class="reveal">
+        <p class="eyebrow">The House</p>
+        <h2 class="h-sec mt-4">
+          <span class="text-white">Not another </span><span class="foil">membership</span><br>
+          <span class="text-white">— a standard.</span>
+        </h2>
+        <div class="rule mt-6"></div>
+
+        <p class="lede mt-7">
+          Cherry Drops Fitness &amp; Life Style 3.0 occupies an entire floor of BNS Centre in Uttara, with a second location at Syed Grand Center.
+          Wide walkways, imported plate-loaded machines, a full free-weight range and a cardio deck that
+          looks straight out over the city.
+        </p>
+        <p class="lede mt-4">
+          Everything here is built around two things people quietly care about most: equipment that actually
+          works, and a room that is genuinely clean. We sanitise between sessions, every day, on record.
+        </p>
+
+        <dl class="mt-9 grid grid-cols-2 gap-x-6 gap-y-7 max-w-lg">
+          <div>
+            <dt class="eyebrow !tracking-[.24em]">Floor</dt>
+            <dd class="font-display text-4xl font-extrabold text-white mt-2">10<span class="text-crimson">TH</span></dd>
+            <p class="text-sm text-white/60 mt-1">BNS Centre, Sector-7</p>
+          </div>
+          <div>
+            <dt class="eyebrow !tracking-[.24em]">Climate</dt>
+            <dd class="font-display text-4xl font-extrabold text-white mt-2">FULL <span class="text-crimson">A/C</span></dd>
+            <p class="text-sm text-white/60 mt-1">Every zone, all hours</p>
+          </div>
+          <div>
+            <dt class="eyebrow !tracking-[.24em]">Prayer Room</dt>
+            <dd class="font-display text-4xl font-extrabold text-white mt-2">ON <span class="text-crimson">SITE</span></dd>
+            <p class="text-sm text-white/60 mt-1">Quiet, dedicated space</p>
+          </div>
+          <div>
+            <dt class="eyebrow !tracking-[.24em]">Access</dt>
+            <dd class="font-display text-4xl font-extrabold text-white mt-2">LIFT<span class="text-crimson">.</span></dd>
+            <p class="text-sm text-white/60 mt-1">Direct to the floor</p>
+          </div>
+        </dl>
+      </div>
+
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="grid grid-cols-2 gap-4 sm:gap-5">
+          <div class="shot col-span-2 aspect-[16/10]">
+            <img src="gympictures/gymdesk.jpg" alt="Cherry Drops reception desk with backlit marble ceiling feature and LED walkway" loading="lazy" decoding="async">
+          </div>
+          <div class="shot aspect-[4/5]">
+            <img src="gympictures/gymnamaj.jpg" alt="Dedicated prayer room on the same floor as the gym" loading="lazy" decoding="async">
+          </div>
+          <div class="shot aspect-[4/5]">
+            <img src="gympictures/gym1.jpg" alt="Warm-lit open studio floor at Cherry Drops" loading="lazy" decoding="async">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PROGRAMS ══════════ -->
+<section id="programs" class="relative py-[var(--s-7)] bg-ink-soft grain">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="max-w-3xl reveal">
+      <p class="eyebrow">What We Run</p>
+      <h2 class="h-sec mt-4 text-white">Programs built<br><span class="ember">around results</span></h2>
+      <div class="rule mt-6"></div>
+      <p class="lede mt-6">Train solo or with a coach. Every plan starts with an assessment, not a guess.</p>
+    </div>
+
+    <div class="mt-[var(--s-5)] grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+      <article class="card p-8 reveal">
+        <div class="grid place-items-center h-14 w-14 border border-bronze/30 bg-crimson/10 text-bronze-light">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9v6M8 6v12M16 6v12M20 9v6M8 12h8"/></svg>
+        </div>
+        <h3 class="h-card mt-6 text-white">Strength &amp; Conditioning</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">Barbell fundamentals, plate-loaded machines and progressive overload programming for real, tracked gains.</p>
+      </article>
+
+      <article class="card p-8 reveal" style="transition-delay:.06s">
+        <div class="grid place-items-center h-14 w-14 border border-bronze/30 bg-crimson/10 text-bronze-light">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l2.5-7 4 14L16 12h5"/></svg>
+        </div>
+        <h3 class="h-card mt-6 text-white">Cardio &amp; HIIT</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">Treadmills, air bikes and turf sprint lanes on a glass-walled deck with a full city view.</p>
+      </article>
+
+      <article class="card p-8 reveal" style="transition-delay:.12s">
+        <div class="grid place-items-center h-14 w-14 border border-bronze/30 bg-crimson/10 text-bronze-light">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7" r="3.2"/><path d="M5.5 21a6.5 6.5 0 0 1 13 0"/></svg>
+        </div>
+        <h3 class="h-card mt-6 text-white">Personal Training</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">One-to-one coaching with a certified trainer — form correction, periodisation and weekly check-ins.</p>
+      </article>
+
+      <article class="card p-8 reveal" style="transition-delay:.06s">
+        <div class="grid place-items-center h-14 w-14 border border-bronze/30 bg-crimson/10 text-bronze-light">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="2.6"/><circle cx="17" cy="9" r="2.2"/><path d="M3 20a5 5 0 0 1 10 0M14.5 20a4.4 4.4 0 0 1 6.5-3.8"/></svg>
+        </div>
+        <h3 class="h-card mt-6 text-white">Group Classes</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">Zumba, aerobics and circuit sessions in the open studio — high energy, all levels welcome.</p>
+      </article>
+
+      <article class="card p-8 reveal" style="transition-delay:.12s">
+        <div class="grid place-items-center h-14 w-14 border border-bronze/30 bg-crimson/10 text-bronze-light">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-4.6-7-10a4.6 4.6 0 0 1 7-3.9A4.6 4.6 0 0 1 19 11c0 5.4-7 10-7 10Z"/></svg>
+        </div>
+        <h3 class="h-card mt-6 text-white">Weight Management</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">Structured fat-loss and lean-gain tracks with nutrition guidance and monthly body composition reviews.</p>
+      </article>
+
+      <article class="card p-8 reveal" style="transition-delay:.18s">
+        <div class="grid place-items-center h-14 w-14 border border-bronze/30 bg-crimson/10 text-bronze-light">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.6 5.5 6 .9-4.3 4.3 1 6L12 17l-5.3 2.7 1-6L3.4 9.4l6-.9L12 3Z"/></svg>
+        </div>
+        <h3 class="h-card mt-6 text-white">Bodybuilding Prep</h3>
+        <p class="mt-3 text-white/60 leading-relaxed">Hypertrophy blocks, split programming and peak-week support for members chasing the stage.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ FACILITY GALLERY ══════════ -->
+<section id="facility" class="field grain relative py-[var(--s-7)]">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="flex flex-wrap items-end justify-between gap-6 reveal">
+      <div class="max-w-2xl">
+        <p class="eyebrow">The Floor</p>
+        <h2 class="h-sec mt-4 text-white">Walk the <span class="foil">whole floor</span></h2>
+        <div class="rule mt-6"></div>
+      </div>
+      <p class="lede max-w-sm">Free weights, plate-loaded machines, a cardio deck and open studio space — all under one roof.</p>
+    </div>
+
+    <div class="mt-[var(--s-5)] grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 auto-rows-[168px] sm:auto-rows-[210px]">
+      <button class="shot lb col-span-2 row-span-2 group" data-src="gympictures/gym3.jpg" data-cap="Main training hall — plate-loaded machines and benches">
+        <img src="gympictures/gym3.jpg" alt="Main training hall with benches, racks and motivational wall graphics" loading="lazy" decoding="async">
+        <span class="absolute bottom-4 left-4 z-[3] font-display uppercase tracking-[.2em] text-xs text-bronze-light">Main Hall</span>
+      </button>
+      <button class="shot lb group" data-src="gympictures/gym5.jpg" data-cap="Cardio deck — treadmills along the glass wall">
+        <img src="gympictures/gym5.jpg" alt="Row of treadmills facing the glass wall on the cardio deck" loading="lazy" decoding="async">
+        <span class="absolute bottom-3 left-3 z-[3] font-display uppercase tracking-[.2em] text-[.68rem] text-bronze-light">Cardio Deck</span>
+      </button>
+      <button class="shot lb group" data-src="gympictures/gym2.jpg" data-cap="Free weight zone">
+        <img src="gympictures/gym2.jpg" alt="Free weight zone at Cherry Drops" loading="lazy" decoding="async">
+        <span class="absolute bottom-3 left-3 z-[3] font-display uppercase tracking-[.2em] text-[.68rem] text-bronze-light">Free Weights</span>
+      </button>
+      <button class="shot lb col-span-2 group" data-src="gympictures/gym4.jpg" data-cap="Machine row and mirrored training wall">
+        <img src="gympictures/gym4.jpg" alt="Machine row beside the mirrored training wall" loading="lazy" decoding="async">
+        <span class="absolute bottom-3 left-3 z-[3] font-display uppercase tracking-[.2em] text-[.68rem] text-bronze-light">Machines</span>
+      </button>
+      <button class="shot lb col-span-2 group" data-src="gympictures/gym10.jpg" data-cap="Treadmill row along the window line">
+        <img src="gympictures/gym10.jpg" alt="Row of treadmills running along the window line" loading="lazy" decoding="async">
+        <span class="absolute bottom-3 left-3 z-[3] font-display uppercase tracking-[.2em] text-[.68rem] text-bronze-light">Treadmills</span>
+      </button>
+      <button class="shot lb group" data-src="gympictures/gym6.jpg" data-cap="Strength corner">
+        <img src="gympictures/gym6.jpg" alt="Strength training corner with racks" loading="lazy" decoding="async">
+      </button>
+      <button class="shot lb group" data-src="gympictures/gym7.jpg" data-cap="Training floor detail">
+        <img src="gympictures/gym7.jpg" alt="Training floor detail at Cherry Drops" loading="lazy" decoding="async">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ AMENITIES ══════════ -->
+<section id="amenities" class="relative py-[var(--s-7)] bg-ink-soft grain">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="max-w-3xl reveal">
+      <p class="eyebrow">Beyond the Weights</p>
+      <h2 class="h-sec mt-4 text-white">The details that<br><span class="foil">keep you coming back</span></h2>
+      <div class="rule mt-6"></div>
+    </div>
+
+    <div class="mt-[var(--s-5)] grid gap-5 lg:grid-cols-3">
+
+      <article class="card reveal">
+        <div class="shot aspect-[4/3]">
+          <img src="gympictures/gymnamaj1.jpg" alt="Prayer room with backlit geometric mihrab panel and perforated ceiling light" loading="lazy" decoding="async">
+        </div>
+        <div class="p-7">
+          <p class="eyebrow !tracking-[.24em]">Prayer Room</p>
+          <h3 class="h-card mt-3 text-white">A quiet space, always open</h3>
+          <p class="mt-3 text-white/60 leading-relaxed">A dedicated, carpeted prayer room with a backlit mihrab — so your schedule never has to compete with your practice.</p>
+        </div>
+      </article>
+
+      <article class="card reveal" style="transition-delay:.07s">
+        <div class="shot aspect-[4/3]">
+          <img src="gympictures/gymrestroom.jpg" alt="Marble washroom with backlit mirror, three basins and a shower cubicle" loading="lazy" decoding="async">
+        </div>
+        <div class="p-7">
+          <p class="eyebrow !tracking-[.24em]">Washrooms &amp; Showers</p>
+          <h3 class="h-card mt-3 text-white">Hotel-grade, not gym-grade</h3>
+          <p class="mt-3 text-white/60 leading-relaxed">Full marble washrooms with backlit mirrors and enclosed showers — cleaned and restocked through the day.</p>
+        </div>
+      </article>
+
+      <article class="card reveal" style="transition-delay:.14s">
+        <div class="shot aspect-[4/3]">
+          <img src="gympictures/gymdesk1.jpg" alt="Members' lounge with glass consultation table and seating beside reception" loading="lazy" decoding="async">
+        </div>
+        <div class="p-7">
+          <p class="eyebrow !tracking-[.24em]">Reception &amp; Lounge</p>
+          <h3 class="h-card mt-3 text-white">Somewhere to actually sit</h3>
+          <p class="mt-3 text-white/60 leading-relaxed">A staffed front desk, consultation table and lounge seating for plan reviews, guests and post-session recovery.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HYGIENE ══════════ -->
+<section id="hygiene" class="field grain relative py-[var(--s-7)]">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="grid gap-[var(--s-5)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-[var(--s-6)] items-center">
+
+      <div class="reveal">
+        <p class="eyebrow">Hygiene Protocol</p>
+        <h2 class="h-sec mt-4 text-white">Cleaned like<br><span class="ember">someone's watching</span></h2>
+        <div class="rule mt-6"></div>
+        <p class="lede mt-7">
+          Every console, grip and bench is wiped down on a fixed rotation — not just when it looks dirty.
+          Our floor staff work a documented checklist, and a dedicated quality manager signs it off.
+        </p>
+
+        <ul class="mt-8 grid gap-4">
+          <li class="flex gap-4 items-start">
+            <span class="mt-1 grid place-items-center h-6 w-6 shrink-0 rounded-full bg-crimson/15 border border-crimson/40 text-crimson-lite">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg>
+            </span>
+            <p class="text-white/70"><strong class="text-white font-semibold">Equipment sanitised on rotation</strong> — cardio consoles, handles and benches through the day.</p>
+          </li>
+          <li class="flex gap-4 items-start">
+            <span class="mt-1 grid place-items-center h-6 w-6 shrink-0 rounded-full bg-crimson/15 border border-crimson/40 text-crimson-lite">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg>
+            </span>
+            <p class="text-white/70"><strong class="text-white font-semibold">PPE for cleaning staff</strong> — masks, gloves and hair covers as standard practice.</p>
+          </li>
+          <li class="flex gap-4 items-start">
+            <span class="mt-1 grid place-items-center h-6 w-6 shrink-0 rounded-full bg-crimson/15 border border-crimson/40 text-crimson-lite">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 12 6 6L20 6"/></svg>
+            </span>
+            <p class="text-white/70"><strong class="text-white font-semibold">Washrooms serviced daily</strong> — restocked and deep-cleaned, then checked again at close.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 sm:gap-4 reveal" style="transition-delay:.1s">
+        <div class="shot aspect-square"><img src="gympictures/clean1.jpg" alt="Staff member in mask and gloves sanitising a treadmill console" loading="lazy" decoding="async"></div>
+        <div class="shot aspect-square mt-8"><img src="gympictures/clean2.jpg" alt="Cleaning of gym equipment in progress" loading="lazy" decoding="async"></div>
+        <div class="shot aspect-square"><img src="gympictures/clean3.jpg" alt="Floor and equipment cleaning routine at Cherry Drops" loading="lazy" decoding="async"></div>
+        <div class="shot aspect-square mt-8"><img src="gympictures/clean4.jpg" alt="Detailed wipe-down of training equipment" loading="lazy" decoding="async"></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ TEAM ══════════ -->
+<section id="team" class="relative py-[var(--s-7)] bg-ink-soft grain">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="grid gap-[var(--s-5)] lg:grid-cols-[minmax(0,.85fr)_minmax(0,1fr)] lg:gap-[var(--s-6)] items-center">
+
+      <div class="reveal">
+        <div class="shot aspect-[4/5] w-full">
+          <img src="gympictures/gymowner.png" alt="Daud, founder of Cherry Drops Fitness &amp; Life Style 3.0, at the office desk"
+               class="object-[38%_22%]" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <div class="reveal" style="transition-delay:.08s">
+        <p class="eyebrow">The Founder</p>
+        <h2 class="h-sec mt-4 text-white">Someone owns<br><span class="foil">the standard</span></h2>
+        <div class="rule mt-6"></div>
+        <p class="eyebrow !tracking-[.24em] mt-8">Founder &amp; Owner</p>
+        <h3 class="mt-3 font-display text-4xl font-extrabold text-white leading-none">Daud</h3>
+        <p class="lede mt-6">
+          Cherry Drops was built around one standard — equipment that works, rooms that are genuinely
+          clean, and members who are treated like people rather than subscriptions. That standard is
+          still the brief for everything on this floor.
+        </p>
+        <p class="mt-7 font-display text-lg tracking-[.18em] uppercase ember">Impossible Happens</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ COMMUNITY ══════════ -->
+<section id="community" class="field grain relative py-[var(--s-7)]">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="max-w-3xl reveal">
+      <p class="eyebrow">The Community</p>
+      <h2 class="h-sec mt-4 text-white">Faces of <span class="ember">Cherry Drops</span></h2>
+      <div class="rule mt-6"></div>
+      <p class="lede mt-6">Students, professionals, first-timers and long-timers — training on the same floor.</p>
+    </div>
+
+    <div class="mt-[var(--s-5)] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
+      <button class="shot lb aspect-[3/4]" data-src="gympictures/gymmem1.jpg" data-cap="Cherry Drops member on the training floor">
+        <img src="gympictures/gymmem1.jpg" alt="Cherry Drops member on the training floor" loading="lazy" decoding="async">
+      </button>
+      <button class="shot lb aspect-[3/4]" data-src="gympictures/gymmem2.jpg" data-cap="Member beside the cardio bikes">
+        <img src="gympictures/gymmem2.jpg" alt="Member standing beside the air bikes" loading="lazy" decoding="async">
+      </button>
+      <button class="shot lb aspect-[3/4]" data-src="gympictures/gymmem3.jpg" data-cap="Member training at Cherry Drops">
+        <img src="gympictures/gymmem3.jpg" alt="Member training at Cherry Drops" loading="lazy" decoding="async">
+      </button>
+      <button class="shot lb aspect-[3/4]" data-src="gympictures/gymmem4.jpg" data-cap="Member at the gym">
+        <img src="gympictures/gymmem4.jpg" alt="Member at Cherry Drops gym" loading="lazy" decoding="async">
+      </button>
+      <button class="shot lb aspect-[3/4] col-span-2 md:col-span-1" data-src="gympictures/gymmem5.jpg" data-cap="Member on the Cherry Drops floor">
+        <img src="gympictures/gymmem5.jpg" alt="Member on the Cherry Drops training floor" loading="lazy" decoding="async">
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ PRICING ══════════ -->
+<section id="pricing" class="relative py-[var(--s-7)] bg-ink-soft grain">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="max-w-3xl reveal">
+      <p class="eyebrow">Membership</p>
+      <h2 class="h-sec mt-4 text-white">Pick your <span class="foil">commitment</span></h2>
+      <div class="rule mt-6"></div>
+      <p class="lede mt-6">
+        No joining fee. Every plan includes a free assessment and a starter programme.
+        Call <a href="tel:+8801610021342" class="text-bronze-light underline decoration-bronze/40 underline-offset-4 hover:text-white transition-colors duration-300">01610-021342</a> to confirm current rates.
+      </p>
+    </div>
+
+    <div class="mt-[var(--s-5)] grid gap-5 lg:grid-cols-3 items-start">
+
+      <article class="card p-8 reveal">
+        <div class="flex items-center min-h-[28px]"><p class="eyebrow !tracking-[.24em]">Monthly</p></div>
+        <p class="mt-5 font-display text-6xl font-extrabold text-white leading-none">৳3,000<span class="text-base font-600 text-white/60 tracking-normal"> /mo</span></p>
+        <p class="mt-3 text-white/55">Month to month. Cancel any time.</p>
+        <ul class="mt-7 grid gap-3 text-white/70">
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Full floor access</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Cardio deck &amp; free weights</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Locker, shower &amp; prayer room</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Free fitness assessment</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost w-full mt-8">Choose Monthly</a>
+      </article>
+
+      <article class="card p-8 reveal !border-crimson/45 lg:-translate-y-3" style="transition-delay:.07s; box-shadow:var(--shadow-float)">
+        <div class="flex items-center justify-between gap-3 min-h-[28px]">
+          <p class="eyebrow !tracking-[.24em] !text-crimson-lite">Quarterly</p>
+          <span class="font-display text-[.66rem] uppercase tracking-[.2em] bg-crimson text-white px-2.5 py-1">Most Popular</span>
+        </div>
+        <p class="mt-5 font-display text-6xl font-extrabold text-white leading-none">৳8,000<span class="text-base font-600 text-white/60 tracking-normal"> /3 mo</span></p>
+        <p class="mt-3 text-white/55">Save roughly a month's fee.</p>
+        <ul class="mt-7 grid gap-3 text-white/70">
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Everything in Monthly</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Group classes included</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Monthly progress review</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Nutrition guidance</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary w-full mt-8">Choose Quarterly</a>
+      </article>
+
+      <article class="card p-8 reveal" style="transition-delay:.14s">
+        <div class="flex items-center min-h-[28px]"><p class="eyebrow !tracking-[.24em]">Yearly</p></div>
+        <p class="mt-5 font-display text-6xl font-extrabold text-white leading-none">৳25,000<span class="text-base font-600 text-white/60 tracking-normal"> /yr</span></p>
+        <p class="mt-3 text-white/55">Best value for the committed.</p>
+        <ul class="mt-7 grid gap-3 text-white/70">
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Everything in Quarterly</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> 2 personal training sessions</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Body composition tracking</li>
+          <li class="flex gap-3"><span class="text-crimson-lite">—</span> Guest passes</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost w-full mt-8">Choose Yearly</a>
+      </article>
+
+    </div>
+
+    <p class="mt-8 text-sm text-white/55 reveal">
+      Indicative pricing shown for demonstration. Please confirm current rates and offers with the front desk.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════ FAQ ══════════ -->
+<section id="faq" class="field grain relative py-[var(--s-7)]">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+    <div class="grid gap-[var(--s-5)] lg:grid-cols-[minmax(0,.8fr)_minmax(0,1.2fr)] lg:gap-[var(--s-6)]">
+
+      <div class="reveal">
+        <p class="eyebrow">Questions</p>
+        <h2 class="h-sec mt-4 text-white">Before you<br><span class="foil">walk in</span></h2>
+        <div class="rule mt-6"></div>
+
+        <div class="card p-7 mt-10 max-w-sm">
+          <p class="eyebrow !tracking-[.24em]">Still Unsure?</p>
+          <p class="mt-3 text-white/65 leading-relaxed">Call the front desk — someone on the floor will answer and talk you through it.</p>
+          <a href="tel:+8801610021342" class="btn btn-ghost w-full mt-6">01610-021342</a>
+        </div>
+      </div>
+
+      <div class="grid gap-3 reveal" style="transition-delay:.08s">
+        <details class="card p-0 group">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-6 min-h-[64px]">
+            <span class="font-display text-xl uppercase tracking-[.01em] text-white">Can I visit before joining?</span>
+            <svg class="chev w-5 h-5 shrink-0 text-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="px-6 pb-6 text-white/60 leading-relaxed">Yes — walk in during opening hours and the front desk will show you the floor. No appointment needed.</p>
+        </details>
+
+        <details class="card p-0 group">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-6 min-h-[64px]">
+            <span class="font-display text-xl uppercase tracking-[.01em] text-white">Is there a separate ladies' schedule?</span>
+            <svg class="chev w-5 h-5 shrink-0 text-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="px-6 pb-6 text-white/60 leading-relaxed">Please call the desk on 01610-021342 for current timings and arrangements — we're happy to talk it through.</p>
+        </details>
+
+        <details class="card p-0 group">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-6 min-h-[64px]">
+            <span class="font-display text-xl uppercase tracking-[.01em] text-white">Do I need my own trainer?</span>
+            <svg class="chev w-5 h-5 shrink-0 text-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="px-6 pb-6 text-white/60 leading-relaxed">No. Floor coaches are available to all members. One-to-one personal training is an optional add-on if you want dedicated programming.</p>
+        </details>
+
+        <details class="card p-0 group">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-6 min-h-[64px]">
+            <span class="font-display text-xl uppercase tracking-[.01em] text-white">Where exactly is the gym?</span>
+            <svg class="chev w-5 h-5 shrink-0 text-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="px-6 pb-6 text-white/60 leading-relaxed">Our main branch is on the 10th floor of BNS Centre, Plot #87, Sector-7, Dhaka–Mymensingh Road, Uttara, Dhaka 1230. We also have a second location at Syed Grand Center, Road #28 Service Road, Sector-7. Take the lift straight up at either.</p>
+        </details>
+
+        <details class="card p-0 group">
+          <summary class="flex items-center justify-between gap-4 cursor-pointer list-none p-6 min-h-[64px]">
+            <span class="font-display text-xl uppercase tracking-[.01em] text-white">Is there a prayer space?</span>
+            <svg class="chev w-5 h-5 shrink-0 text-bronze" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </summary>
+          <p class="px-6 pb-6 text-white/60 leading-relaxed">Yes — a dedicated, carpeted prayer room on the same floor, open throughout the day.</p>
+        </details>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT ══════════ -->
+<section id="contact" class="relative py-[var(--s-7)] bg-ink-soft grain">
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8">
+
+    <div class="grid gap-[var(--s-5)] lg:grid-cols-2 lg:gap-[var(--s-6)]">
+
+      <div class="reveal">
+        <p class="eyebrow">Visit Us</p>
+        <h2 class="h-sec mt-4 text-white">Tenth floor.<br><span class="ember">Come up.</span></h2>
+        <div class="rule mt-6"></div>
+
+        <address class="not-italic mt-9 grid gap-7">
+          <div class="flex gap-4">
+            <span class="grid place-items-center h-11 w-11 shrink-0 border border-bronze/30 bg-crimson/10 text-bronze-light">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="2.8"/></svg>
+            </span>
+            <div class="grid gap-6">
+              <div>
+                <p class="eyebrow !tracking-[.24em] !text-crimson-lite">Main Branch</p>
+                <p class="mt-2 font-display text-2xl uppercase tracking-[.01em] text-white">BNS Centre</p>
+                <p class="mt-1.5 text-white/75 leading-relaxed">
+                  10th Floor, Plot #87, Sector-7<br>
+                  Dhaka–Mymensingh Road, Uttara<br>
+                  Dhaka 1230, Bangladesh
+                </p>
+              </div>
+
+              <div class="pt-5 border-t border-bronze/15">
+                <p class="eyebrow !tracking-[.24em]">Second Location</p>
+                <p class="mt-2 font-display text-2xl uppercase tracking-[.01em] text-white">Syed Grand Center</p>
+                <p class="mt-1.5 text-white/75 leading-relaxed">
+                  10th Floor, Road #28 Service Road, Sector-7<br>
+                  Uttara Model Town, Dhaka 1230
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <span class="grid place-items-center h-11 w-11 shrink-0 border border-bronze/30 bg-crimson/10 text-bronze-light">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2Z"/></svg>
+            </span>
+            <div>
+              <p class="eyebrow !tracking-[.24em]">Phone</p>
+              <a href="tel:+8801610021342" class="mt-1 inline-flex items-center min-h-[44px] font-display text-3xl text-white hover:text-crimson-lift transition-colors duration-300">01610-021342</a>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <span class="grid place-items-center h-11 w-11 shrink-0 border border-bronze/30 bg-crimson/10 text-bronze-light">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+            </span>
+            <div>
+              <p class="eyebrow !tracking-[.24em]">Email</p>
+              <a href="mailto:cherrydropsfitness@gmail.com" class="mt-1 inline-flex items-center min-h-[44px] text-lg text-white/80 hover:text-crimson-lift transition-colors duration-300 break-all">cherrydropsfitness@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="flex gap-4">
+            <span class="grid place-items-center h-11 w-11 shrink-0 border border-bronze/30 bg-crimson/10 text-bronze-light">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+            </span>
+            <div>
+              <p class="eyebrow !tracking-[.24em]">Hours</p>
+              <p class="mt-2 text-white/75 leading-relaxed">
+                Saturday – Thursday · 6:00 AM – 11:00 PM<br>
+                Friday · 4:00 PM – 10:00 PM
+              </p>
+              <p class="mt-2 text-sm text-white/55">Indicative hours — please confirm by phone.</p>
+            </div>
+          </div>
+        </address>
+
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="tel:+8801610021342" class="btn btn-primary">Call the Desk</a>
+          <a href="https://www.google.com/maps/search/?api=1&amp;query=BNS+Centre+Plot+87+Sector+7+Dhaka+Mymensingh+Road+Uttara+Dhaka&amp;query_place_id=ChIJNzRrOgDFVTcRfNr4qnz5JJE" target="_blank" rel="noopener noreferrer" class="btn btn-ghost">
+            Open in Maps
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4 10 14M18 14v5a1.8 1.8 0 0 1-1.8 1.8H5.2A1.8 1.8 0 0 1 3.4 19V7.8A1.8 1.8 0 0 1 5.2 6H10"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal" style="transition-delay:.1s">
+        <div class="card overflow-hidden h-full min-h-[440px]">
+          <iframe
+            title="Map showing Cherry Drops Fitness &amp; Life Style 3.0 main branch at BNS Centre, Sector-7, Uttara, Dhaka"
+            class="w-full h-full min-h-[440px] grayscale-[.35] contrast-[1.1]"
+            style="border:0; filter:invert(.9) hue-rotate(180deg) saturate(.7)"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=90.3861%2C23.8629%2C90.4141%2C23.8789&amp;layer=mapnik&amp;marker=23.8709%2C90.4001">
+          </iframe>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CTA ══════════ -->
+<section class="relative overflow-hidden grain">
+  <div class="absolute inset-0">
+    <img src="gympictures/gym5.jpg" alt="" class="h-full w-full object-cover" loading="lazy" decoding="async">
+  </div>
+  <div class="absolute inset-0" style="background:linear-gradient(to right,rgba(11,11,12,.96) 8%,rgba(11,11,12,.82) 46%,rgba(142,11,23,.62) 100%)"></div>
+  <div class="absolute inset-0 mix-blend-multiply" style="background:radial-gradient(80% 90% at 20% 50%,rgba(204,17,34,.42),transparent 62%)"></div>
+
+  <div class="relative z-[3] mx-auto max-w-[1400px] px-5 sm:px-8 py-[var(--s-7)]">
+    <div class="max-w-3xl reveal">
+      <p class="eyebrow">Enough Reading</p>
+      <h2 class="h-sec mt-4 text-white">Your first session<br>is the <span class="foil">hard one</span>.</h2>
+      <p class="lede mt-7 max-w-xl">Come up to the 10th floor, take the tour, and start with a free assessment. That's it.</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href="tel:+8801610021342" class="btn btn-primary">Call 01610-021342</a>
+        <a href="mailto:cherrydropsfitness@gmail.com" class="btn btn-ghost">Email Us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer class="relative bg-ink hairline">
+  <div class="mx-auto max-w-[1400px] px-5 sm:px-8 py-[var(--s-5)]">
+
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1fr)]">
+
+      <div>
+        <div class="flex items-center gap-4">
+          <span class="block h-16 w-16 rounded-full overflow-hidden ring-1 ring-bronze/30">
+            <img src="brand_assets/brand%20logo.jpg" alt="Cherry Drops Fitness &amp; Life Style 3.0 emblem" class="h-full w-full object-cover scale-[1.06]" loading="lazy">
+          </span>
+          <span class="leading-none">
+            <span class="block font-display text-2xl font-extrabold tracking-[.02em] foil">CHERRY DROPS</span>
+            <span class="block font-display text-[.68rem] tracking-[.32em] text-bronze mt-1.5">FITNESS &amp; LIFE STYLE 3.0</span>
+          </span>
+        </div>
+        <p class="mt-6 text-white/50 max-w-sm leading-relaxed">
+          A full-floor fitness house in Uttara, Dhaka. Serious equipment, genuinely clean rooms,
+          and coaches who pay attention.
+        </p>
+        <p class="mt-5 font-display text-lg tracking-[.18em] uppercase ember">Impossible Happens</p>
+      </div>
+
+      <nav aria-label="Footer">
+        <p class="eyebrow !tracking-[.24em]">Explore</p>
+        <ul class="mt-5 grid">
+          <li><a href="#about"     class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">The Gym</a></li>
+          <li><a href="#programs"  class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Programs</a></li>
+          <li><a href="#facility"  class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Facility</a></li>
+          <li><a href="#amenities" class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Amenities</a></li>
+          <li><a href="#hygiene"   class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Hygiene</a></li>
+          <li><a href="#team"      class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Our Team</a></li>
+          <li><a href="#pricing"   class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Membership</a></li>
+          <li><a href="#faq"       class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">FAQ</a></li>
+          <li><a href="portal.html" class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">Member Portal</a></li>
+        </ul>
+      </nav>
+
+      <div>
+        <p class="eyebrow !tracking-[.24em]">Reach Us</p>
+        <ul class="mt-5 grid">
+          <li><a href="tel:+8801610021342" class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300">01610-021342</a></li>
+          <li><a href="mailto:cherrydropsfitness@gmail.com" class="inline-flex items-center min-h-[44px] text-white/55 hover:text-bronze-light transition-colors duration-300 break-all">cherrydropsfitness@gmail.com</a></li>
+          <li class="text-white/55 leading-relaxed pt-2">
+            <span class="block text-bronze font-display uppercase tracking-[.18em] text-[.7rem]">Main Branch</span>
+            10th Floor, BNS Centre, Plot #87<br>Sector-7, Uttara, Dhaka 1230
+          </li>
+          <li class="text-white/55 leading-relaxed pt-3">
+            <span class="block text-bronze font-display uppercase tracking-[.18em] text-[.7rem]">Second Location</span>
+            10th Floor, Syed Grand Center<br>Road #28 Service Rd, Sector-7, Uttara
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="mt-12 pt-7 hairline flex flex-col sm:flex-row gap-3 items-start sm:items-center justify-between">
+      <p class="text-sm text-white/50">© <span id="yr">2026</span> Cherry Drops Fitness &amp; Life Style 3.0. All rights reserved.</p>
+      <p class="text-sm text-white/50">Uttara Model Town · Dhaka · Bangladesh</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ══════════ LIGHTBOX ══════════ -->
+<div id="lightbox" class="fixed inset-0 z-[90] bg-ink/96 backdrop-blur-md grid place-items-center p-5" role="dialog" aria-modal="true" aria-label="Image viewer">
+  <button id="lbClose" type="button" class="absolute top-5 right-5 grid place-items-center h-12 w-12 border border-bronze/35 text-bronze-light hover:bg-bronze/12 transition-colors duration-300" aria-label="Close image viewer">
+    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <figure class="max-w-[92vw] max-h-[88vh] flex flex-col items-center gap-4">
+    <img id="lbImg" alt="" class="max-w-full max-h-[78vh] object-contain shadow-[0_40px_100px_-30px_rgba(204,17,34,.6)]">
+    <figcaption id="lbCap" class="font-display uppercase tracking-[.22em] text-sm text-bronze"></figcaption>
+  </figure>
+</div>
+
+<script>
+(() => {
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* year */
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* nav: solidify on scroll */
+  const nav = document.getElementById('nav');
+  const onScroll = () => {
+    const past = window.scrollY > 40;
+    nav.classList.toggle('bg-ink/92', past);
+    nav.classList.toggle('backdrop-blur-xl', past);
+    nav.classList.toggle('shadow-[0_10px_40px_-20px_rgba(0,0,0,.9)]', past);
+    nav.classList.toggle('border-b', past);
+    nav.classList.toggle('border-bronze/12', past);
+  };
+  onScroll();
+  addEventListener('scroll', onScroll, { passive: true });
+
+  /* mobile menu */
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => {
+    const open = menu.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    menu.classList.add('hidden');
+    btn.setAttribute('aria-expanded', 'false');
+  }));
+
+  /* scroll reveal */
+  const items = document.querySelectorAll('.reveal');
+  if (reduced || !('IntersectionObserver' in window)) {
+    items.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
+    items.forEach(el => io.observe(el));
+  }
+
+  /* active section in nav */
+  const links = [...document.querySelectorAll('nav[aria-label="Primary"] .navlink')];
+  const sections = links.map(l => document.querySelector(l.getAttribute('href'))).filter(Boolean);
+  if ('IntersectionObserver' in window && sections.length) {
+    const so = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        links.forEach(l => l.removeAttribute('aria-current'));
+        const match = links.find(l => l.getAttribute('href') === '#' + e.target.id);
+        if (match) match.setAttribute('aria-current', 'true');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(s => so.observe(s));
+  }
+
+  /* lightbox */
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  const lbClose = document.getElementById('lbClose');
+  let lastFocus = null;
+
+  const openLb = (src, cap, alt) => {
+    lastFocus = document.activeElement;
+    lbImg.setAttribute('src', src);
+    lbImg.alt = alt || cap || '';
+    lbCap.textContent = cap || '';
+    lb.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    lbClose.focus();
+  };
+  const closeLb = () => {
+    lb.classList.remove('open');
+    document.body.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+    setTimeout(() => { if (!lb.classList.contains('open')) lbImg.removeAttribute('src'); }, 400);
+  };
+
+  document.querySelectorAll('.lb').forEach(el => {
+    el.setAttribute('type', 'button');
+    const img = el.querySelector('img');
+    el.setAttribute('aria-label', 'View larger: ' + (el.dataset.cap || img?.alt || 'image'));
+    el.addEventListener('click', () => openLb(el.dataset.src, el.dataset.cap, img?.alt));
+  });
+
+  lbClose.addEventListener('click', closeLb);
+  lb.addEventListener('click', e => { if (e.target === lb) closeLb(); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+
+  /* pause hero video when off-screen — saves battery on mobile */
+  const vid = document.querySelector('video');
+  if (vid && 'IntersectionObserver' in window) {
+    new IntersectionObserver(entries => {
+      entries.forEach(e => { e.isIntersecting ? vid.play().catch(() => {}) : vid.pause(); });
+    }, { threshold: 0.1 }).observe(vid);
+  }
+})();
+</script>
+</body>
+</html>

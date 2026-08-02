@@ -1,0 +1,11 @@
+# Local dev + working files — not part of the published site
+serve.mjs
+screenshot.mjs
+temporary screenshots/
+.claude/
+web claude.md.md
+node_modules/
+
+# Reference material, not site assets
+brand_assets/brand_guidline.png
+brand_assets/information.png
