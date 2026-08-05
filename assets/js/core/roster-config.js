@@ -11,4 +11,4 @@
    breaks, it just isn't live yet.
    ============================================================ */
 
-export const MEMBERS_CSV_URL = 'PASTE_YOUR_PUBLISHED_SHEET_CSV_LINK_HERE';
+export const MEMBERS_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTKfgTm2pKa7mJgmlej144_5ttLHYWb8nXX7nh3E6UvGfmXNswqEU3CLpCIxQHkbwk9Y1pRMdjYecCA/pub?output=csv';
