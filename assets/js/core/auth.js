@@ -17,7 +17,7 @@ const STAFF_KEY = 'cherrydrops.session.staff';
 
 export function memberLogin(identifier) {
   const m = findMemberByCredential(identifier);
-  if (!m) return { ok: false, error: 'No member found with that ID, phone or email. Try GC-1001, or a phone/email from the demo roster.' };
+  if (!m) return { ok: false, error: 'No member found with that ID, phone or email. Check with the front desk for your Member ID.' };
   sessionStorage.setItem(MEMBER_KEY, m.id);
   return { ok: true, memberId: m.id };
 }
