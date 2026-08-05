@@ -79,7 +79,8 @@ export const raw = () => (state ??= load());
 export const branches = () => raw().branches;
 export const branch = (id) => raw().branches.find((b) => b.id === id) ?? null;
 export const packages = () => raw().packages;
-export const pkg = (id) => raw().packages.find((p) => p.id === id) ?? PACKAGES.find((p) => p.id === id) ?? null;
+export const pkg = (id) =>
+  raw().packages.find((p) => p.id === id) ?? PACKAGES.find((p) => p.id === id) ?? customPackages.get(id) ?? null;
 export const trainers = () => raw().trainers;
 export const trainer = (id) => raw().trainers.find((t) => t.id === id) ?? null;
 export const staff = () => raw().staff;
@@ -98,6 +99,44 @@ function findByName(list, name) {
   const q = String(name || '').trim().toLowerCase();
   if (!q) return null;
   return list.find((x) => x.name.toLowerCase() === q) ?? null;
+}
+
+// Packages synthesized from a plain number of months (e.g. "8 Months"
+// typed straight into the sheet, not one of the 4 preset tier names).
+// Kept here rather than in raw().packages so pkg() can resolve them
+// without every other selector needing to know these aren't "real".
+const customPackages = new Map();
+
+/**
+ * Package column accepts either an exact tier name (Monthly, Quarterly,
+ * Half-Yearly, Yearly) or a plain number of months (e.g. "8", "8 Months") -
+ * staff shouldn't have to force an arbitrary membership length into one
+ * of 4 fixed buckets.
+ */
+function resolvePackage(row) {
+  const packageText = (row['Package'] || '').trim();
+  const known = findByName(PACKAGES, packageText);
+  if (known) return known;
+
+  const source = packageText || row['Package Duration'] || '';
+  const match = /(\d+(?:\.\d+)?)/.exec(source);
+  if (!match) return null;
+
+  const months = Math.max(1, Math.round(Number(match[1])));
+  const id = `custom-${months}`;
+  if (!customPackages.has(id)) {
+    const monthly = PACKAGES.find((p) => p.id === 'monthly');
+    const rate = monthly ? monthly.price / monthly.months : 0;
+    customPackages.set(id, {
+      id,
+      name: `${months} Month${months === 1 ? '' : 's'}`,
+      months,
+      price: Math.round(rate * months),
+      popular: false,
+      custom: true,
+    });
+  }
+  return customPackages.get(id);
 }
 
 function parseFlexibleDate(value) {
@@ -119,7 +158,7 @@ function parseFlexibleDate(value) {
 function rowToMember(row, prev) {
   const id = (row['Member ID'] || '').trim();
   if (!id) return null;
-  const plan = findByName(PACKAGES, row['Package']);
+  const plan = resolvePackage(row);
   const br = findByName(BRANCHES, row['Branch']);
   const trFromSheet = findByName(TRAINERS, row['Trainer']);
   const start = parseFlexibleDate(row['Package Start Date']) ?? prev?.startDate ?? iso(today());

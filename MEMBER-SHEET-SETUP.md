@@ -14,7 +14,9 @@ you) with exactly these column headers in the first row:
 Member Name | Member ID | Package | Package Start Date | Package End Date | Package Duration | Trainer | Branch
 ```
 
-- **Package** should be one of: `Monthly`, `Quarterly`, `Half-Yearly`, `Yearly`
+- **Package** can be `Monthly`, `Quarterly`, `Half-Yearly`, `Yearly` — or just a
+  plain number of months if it's a custom length, e.g. `8` or `8 Months`
+- **Member ID** goes in its own column — don't put it in Package by mistake
 - **Branch** should match a branch name exactly, e.g. `BNS Centre`
 - **Trainer** should match a trainer's name exactly, or leave blank
 - Dates in `YYYY-MM-DD` format, e.g. `2026-08-15`
