@@ -9,6 +9,7 @@ import { barChart } from './core/charts.js';
 import { charge } from './core/payments.js';
 
 store.init();
+store.refreshLiveMembers();
 const app = $('#app');
 
 const ROUTES = [

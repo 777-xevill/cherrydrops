@@ -10,6 +10,7 @@ import { lineChart, barChart } from './core/charts.js';
 import { exportLedgerCsv, renderPreviewTable } from './core/excel-export.js';
 
 store.init();
+store.refreshLiveMembers();
 const app = $('#app');
 
 const ROUTES = [

@@ -11,8 +11,10 @@
    records) has to be re-validated server-side.
    ============================================================ */
 
-import { buildSeed, PACKAGES, RENEW_OFFERS, PAYMENT_METHODS } from './seed.js';
+import { buildSeed, PACKAGES, BRANCHES, TRAINERS, RENEW_OFFERS, PAYMENT_METHODS } from './seed.js';
 import { iso, addMonths, addDays, today, daysBetween, monthKey, sum, groupBy, uid } from './util.js';
+import { parseCsv } from './csv.js';
+import { MEMBERS_CSV_URL } from './roster-config.js';
 
 // Bump BOTH the key suffix and the `version` check below whenever
 // buildSeed()'s shape or content changes — otherwise a returning
@@ -89,6 +91,91 @@ export const paymentMethod = (id) => PAYMENT_METHODS.find((m) => m.id === id) ??
 
 export const members = () => raw().members;
 export const member = (id) => raw().members.find((m) => m.id === id) ?? null;
+
+/* ---------------- live roster (Google Sheet) ---------------- */
+
+function findByName(list, name) {
+  const q = String(name || '').trim().toLowerCase();
+  if (!q) return null;
+  return list.find((x) => x.name.toLowerCase() === q) ?? null;
+}
+
+function parseFlexibleDate(value) {
+  const s = String(value || '').trim();
+  if (!s) return null;
+  if (/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0, 10);
+  const d = new Date(s);
+  return Number.isNaN(d.getTime()) ? null : iso(d);
+}
+
+/**
+ * Merges one sheet row onto the previous version of that member (if any
+ * existed from local seed data or an earlier live fetch). The sheet is
+ * authoritative for what staff actually maintain there — name, package,
+ * dates, branch, trainer — everything else (diet profile, attendance,
+ * notes, trainer bookings made in-app) survives across refreshes instead
+ * of being wiped out every time the sheet is re-read.
+ */
+function rowToMember(row, prev) {
+  const id = (row['Member ID'] || '').trim();
+  if (!id) return null;
+  const plan = findByName(PACKAGES, row['Package']);
+  const br = findByName(BRANCHES, row['Branch']);
+  const trFromSheet = findByName(TRAINERS, row['Trainer']);
+  const start = parseFlexibleDate(row['Package Start Date']) ?? prev?.startDate ?? iso(today());
+  const end = parseFlexibleDate(row['Package End Date']) ?? prev?.expiry ?? iso(addMonths(today(), plan?.months ?? 1));
+
+  return {
+    id,
+    name: row['Member Name'] || prev?.name || id,
+    gender: prev?.gender ?? 'male',
+    email: prev?.email ?? '',
+    phone: prev?.phone ?? '',
+    branchId: br?.id ?? prev?.branchId ?? BRANCHES[0]?.id ?? null,
+    packageId: plan?.id ?? prev?.packageId ?? PACKAGES[0]?.id ?? null,
+    joined: start,
+    startDate: start,
+    expiry: end,
+    autoRenew: prev?.autoRenew ?? false,
+    goal: prev?.goal ?? 'General fitness',
+    heightCm: prev?.heightCm ?? 170,
+    weightKg: prev?.weightKg ?? 70,
+    age: prev?.age ?? 25,
+    activity: prev?.activity ?? 'moderate',
+    trainerId: trFromSheet?.id ?? prev?.trainerId ?? null,
+    attendance: prev?.attendance ?? [],
+    notes: prev?.notes ?? '',
+    dietPlan: prev?.dietPlan,
+  };
+}
+
+/**
+ * Re-reads the published member Sheet and swaps it in as the current
+ * roster. Safe to call anytime — no-ops until roster-config.js has a
+ * real URL, and any fetch/parse failure just leaves the existing data
+ * in place (logged, never thrown) so a network hiccup can't blank the
+ * portal out from under someone.
+ */
+export async function refreshLiveMembers() {
+  if (!MEMBERS_CSV_URL || MEMBERS_CSV_URL.includes('PASTE_YOUR')) return;
+  try {
+    const res = await fetch(MEMBERS_CSV_URL, { cache: 'no-store' });
+    if (!res.ok) throw new Error(`sheet responded ${res.status}`);
+    const rows = parseCsv(await res.text());
+    if (rows.length === 0) return;
+
+    const existing = new Map(raw().members.map((m) => [m.id, m]));
+    const liveMembers = rows
+      .map((row) => rowToMember(row, existing.get((row['Member ID'] || '').trim())))
+      .filter(Boolean);
+    if (liveMembers.length === 0) return;
+
+    raw().members = liveMembers;
+    emit();
+  } catch (err) {
+    console.warn('[store] could not load the live member sheet — staying on last known data', err);
+  }
+}
 
 export function findMemberByCredential(identifier) {
   const q = String(identifier || '').trim().toLowerCase();

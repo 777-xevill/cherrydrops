@@ -12,6 +12,7 @@ import { charge } from './core/payments.js';
 import { GYM_PROFILE, MUSCLE_GROUPS, FOODS } from './core/seed.js';
 
 store.init();
+store.refreshLiveMembers();
 
 const app = $('#app');
 
