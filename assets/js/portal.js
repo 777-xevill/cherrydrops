@@ -8,11 +8,13 @@ import { $, $$, html, esc, icon, money, fmtDate, fmtDateTime, pct, num, toast, c
 import { sparkline, lineChart, stackedBar100 } from './core/charts.js';
 import { renderMuscleMap } from './core/muscle-map.js';
 import { analyzeDiet, ACTIVITY_LEVELS, GOALS, bmiCategory } from './core/nutrition.js';
-import { charge } from './core/payments.js';
 import { GYM_PROFILE, MUSCLE_GROUPS, FOODS } from './core/seed.js';
 
 store.init();
 store.refreshLiveMembers();
+
+const WHATSAPP_NUMBER = '8801610021342';
+const waLink = (text) => `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
 
 const app = $('#app');
 
@@ -309,7 +311,7 @@ function viewPackages(view, member) {
   const offers = store.offersFor(member);
 
   view.innerHTML = html`
-    ${viewHead('Membership', 'Packages & Renew', 'Pick a plan — eligible offers apply automatically at checkout.')}
+    ${viewHead('Membership', 'Packages & Renew', 'Pick a plan and message the front desk on WhatsApp to confirm and pay.')}
 
     ${offers.length ? html`
       <div class="card p-5 mb-5 !border-crimson/35">
@@ -341,7 +343,7 @@ function viewPackages(view, member) {
             ${p.perks.map((perk) => `<li class="flex gap-2"><span class="text-crimson-lite">—</span>${esc(perk)}</li>`).join('')}
           </ul>
           <button type="button" class="btn ${current ? 'btn-ghost' : 'btn-primary'} w-full mt-6" data-renew="${p.id}">
-            ${current ? 'Renew This Plan' : 'Switch &amp; Pay'}
+            ${current ? 'Renew via WhatsApp' : 'Switch via WhatsApp'}
           </button>
         </article>
       `;}).join('')}
@@ -355,6 +357,14 @@ function openRenewModal(memberId, packageId) {
   const member = store.member(memberId);
   const quote = store.quoteRenewal(member, packageId);
   if (!quote) return;
+
+  const message = [
+    "Hi! I'd like to renew my Cherry Drops membership.",
+    `Member ID: ${member.id}`,
+    `Name: ${member.name}`,
+    `Plan: ${quote.packageName}`,
+    `Amount: ${money(quote.amount)}`,
+  ].join('\n');
 
   const dlg = document.createElement('dialog');
   dlg.className = 'modal';
@@ -371,89 +381,19 @@ function openRenewModal(memberId, packageId) {
         <div class="flex justify-between text-base mt-3 pt-3 border-t border-bronze/15"><span class="text-bronze font-semibold">Total</span><span class="text-white font-bold">${esc(money(quote.amount))}</span></div>
         <p class="hint mt-2">New expiry: ${esc(fmtDate(quote.newExpiry))}</p>
       </div>
-
-      <p class="label">Pay with</p>
-      <div class="grid grid-cols-5 gap-2" id="method-grid">
-        ${store.paymentMethods().map((m) => `
-          <button type="button" class="btn btn-ghost btn-sm !flex-col !gap-1 !py-2 !px-1 !h-auto" data-method="${m.id}" style="min-height:56px">
-            <span class="text-xs">${esc(m.name)}</span>
-          </button>
-        `).join('')}
-      </div>
-
-      <div id="method-fields" class="mt-5"></div>
-      <p id="pay-err" class="err hidden"></p>
+      <p class="hint">Message the front desk on WhatsApp to confirm and pay — they'll update your membership right away.</p>
     </div>
     <div class="modal-foot">
       <button type="button" class="btn btn-ghost" data-close>Cancel</button>
-      <button type="button" class="btn btn-primary" id="pay-btn" disabled>${icon('card')}Pay ${esc(money(quote.amount))}</button>
+      <a href="${waLink(message)}" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="wa-btn">${icon('phone')}Message on WhatsApp</a>
     </div>
   `;
   document.body.append(dlg);
   dlg.showModal();
 
-  let selectedMethod = null;
-  const fieldsEl = $('#method-fields', dlg);
-  const payBtn = $('#pay-btn', dlg);
-
-  function fieldsFor(methodId) {
-    const method = store.paymentMethod(methodId);
-    if (method.kind === 'mfs') {
-      return html`
-        <label class="label" for="phone-input">${esc(method.name)} number</label>
-        <input class="input" id="phone-input" placeholder="01XXXXXXXXX" inputmode="numeric" maxlength="11" value="${esc(store.member(memberId).phone)}">
-      `;
-    }
-    if (method.kind === 'card') {
-      return html`
-        <label class="label" for="card-number">Card number</label>
-        <input class="input" id="card-number" placeholder="4111 1111 1111 1111" inputmode="numeric">
-        <div class="grid grid-cols-2 gap-3 mt-3">
-          <div><label class="label" for="card-exp">Expiry</label><input class="input" id="card-exp" placeholder="MM/YY"></div>
-          <div><label class="label" for="card-cvv">CVV</label><input class="input" id="card-cvv" placeholder="123" inputmode="numeric" maxlength="4"></div>
-        </div>
-      `;
-    }
-    return '<p class="hint">Pay in person — the front desk will confirm and mark this as settled.</p>';
-  }
-
-  $$('[data-method]', dlg).forEach((btn) => {
-    btn.addEventListener('click', () => {
-      $$('[data-method]', dlg).forEach((b) => b.classList.remove('!border-crimson', '!text-white'));
-      btn.classList.add('!border-crimson', '!text-white');
-      selectedMethod = btn.dataset.method;
-      fieldsEl.innerHTML = fieldsFor(selectedMethod);
-      payBtn.disabled = false;
-    });
-  });
-
   $$('[data-close]', dlg).forEach((b) => b.addEventListener('click', () => dlg.close()));
   dlg.addEventListener('close', () => dlg.remove());
-
-  payBtn.addEventListener('click', async () => {
-    const errEl = $('#pay-err', dlg);
-    errEl.classList.add('hidden');
-    const method = store.paymentMethod(selectedMethod);
-    const ctx = { amount: quote.amount };
-    if (method.kind === 'mfs') ctx.phone = $('#phone-input', dlg)?.value.trim();
-    if (method.kind === 'card') { ctx.cardNumber = $('#card-number', dlg)?.value; ctx.expiry = $('#card-exp', dlg)?.value; ctx.cvv = $('#card-cvv', dlg)?.value; }
-
-    payBtn.disabled = true;
-    payBtn.textContent = 'Processing…';
-    const result = await charge(selectedMethod, ctx);
-    if (!result.ok) {
-      errEl.textContent = result.error;
-      errEl.classList.remove('hidden');
-      payBtn.disabled = false;
-      payBtn.innerHTML = `${icon('card')}Pay ${esc(money(quote.amount))}`;
-      return;
-    }
-
-    store.recordPayment({ memberId, packageId, quote, method: selectedMethod, gatewayResult: result, recordedBy: 'member-portal' });
-    dlg.close();
-    toast(`Payment received via ${result.gateway}. Membership renewed to ${fmtDate(quote.newExpiry)}.`, 'good');
-    render();
-  });
+  $('#wa-btn', dlg).addEventListener('click', () => dlg.close());
 }
 
 /* ---------------- trainer ---------------- */

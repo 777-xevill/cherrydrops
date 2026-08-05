@@ -220,18 +220,6 @@ tailwind.config = {
   details[open] .chev{ transform:rotate(180deg); }
   .chev{ transition:transform .35s var(--ease-spring); }
 
-  /* ---------- toast (booking form feedback) ---------- */
-  .toast-wrap{ position:fixed; right:1rem; bottom:1rem; z-index:96; display:grid; gap:.5rem; max-width:min(94vw,380px); }
-  .toast{
-    padding:.75rem .9rem; border:1px solid rgba(201,169,138,.3); border-radius:2px;
-    background:rgba(11,11,12,.97); box-shadow:var(--shadow-float);
-    font-size:.9rem; line-height:1.5; color:#E9E6E2;
-    animation:toast-in .35s var(--ease-spring) both;
-  }
-  .toast.good{ border-color:rgba(46,158,107,.55); }
-  .toast.bad{ border-color:rgba(224,65,79,.55); }
-  @keyframes toast-in{ from{ opacity:0; transform:translateY(10px);} to{ opacity:1; transform:none;} }
-
   @media (prefers-reduced-motion:reduce){
     *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; }
     .reveal{ opacity:1; transform:none; }
@@ -724,7 +712,7 @@ tailwind.config = {
           <li class="flex gap-3"><span class="text-crimson-lite">—</span> Locker, shower &amp; prayer room</li>
           <li class="flex gap-3"><span class="text-crimson-lite">—</span> Free fitness assessment</li>
         </ul>
-        <a href="#contact" data-book="Monthly" class="btn btn-ghost w-full mt-8">Choose Monthly</a>
+        <a href="https://wa.me/8801610021342?text=Hi!%20I'd%20like%20to%20join%20Cherry%20Drops%20Fitness%20with%20the%20Monthly%20plan." target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full mt-8">Choose Monthly</a>
       </article>
 
       <article class="card p-8 reveal !border-crimson/45 lg:-translate-y-3" style="transition-delay:.07s; box-shadow:var(--shadow-float)">
@@ -740,7 +728,7 @@ tailwind.config = {
           <li class="flex gap-3"><span class="text-crimson-lite">—</span> Monthly progress review</li>
           <li class="flex gap-3"><span class="text-crimson-lite">—</span> Nutrition guidance</li>
         </ul>
-        <a href="#contact" data-book="Quarterly" class="btn btn-primary w-full mt-8">Choose Quarterly</a>
+        <a href="https://wa.me/8801610021342?text=Hi!%20I'd%20like%20to%20join%20Cherry%20Drops%20Fitness%20with%20the%20Quarterly%20plan." target="_blank" rel="noopener noreferrer" class="btn btn-primary w-full mt-8">Choose Quarterly</a>
       </article>
 
       <article class="card p-8 reveal" style="transition-delay:.14s">
@@ -753,7 +741,7 @@ tailwind.config = {
           <li class="flex gap-3"><span class="text-crimson-lite">—</span> Body composition tracking</li>
           <li class="flex gap-3"><span class="text-crimson-lite">—</span> Guest passes</li>
         </ul>
-        <a href="#contact" data-book="Yearly" class="btn btn-ghost w-full mt-8">Choose Yearly</a>
+        <a href="https://wa.me/8801610021342?text=Hi!%20I'd%20like%20to%20join%20Cherry%20Drops%20Fitness%20with%20the%20Yearly%20plan." target="_blank" rel="noopener noreferrer" class="btn btn-ghost w-full mt-8">Choose Yearly</a>
       </article>
 
     </div>
@@ -1022,8 +1010,6 @@ tailwind.config = {
     <figcaption id="lbCap" class="font-display uppercase tracking-[.22em] text-sm text-bronze"></figcaption>
   </figure>
 </div>
-
-<script type="module" src="assets/js/booking.js"></script>
 
 <script>
 (() => {
