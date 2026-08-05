@@ -82,7 +82,7 @@ export const packages = () => raw().packages;
 export const pkg = (id) =>
   raw().packages.find((p) => p.id === id) ?? PACKAGES.find((p) => p.id === id) ?? customPackages.get(id) ?? null;
 export const trainers = () => raw().trainers;
-export const trainer = (id) => raw().trainers.find((t) => t.id === id) ?? null;
+export const trainer = (id) => raw().trainers.find((t) => t.id === id) ?? customTrainers.get(id) ?? null;
 export const staff = () => raw().staff;
 export const inventory = () => raw().inventory;
 export const paymentMethods = () => PAYMENT_METHODS;
@@ -106,6 +106,41 @@ function findByName(list, name) {
 // Kept here rather than in raw().packages so pkg() can resolve them
 // without every other selector needing to know these aren't "real".
 const customPackages = new Map();
+
+// Same idea for a Trainer name that isn't one of the 5 seeded coaches -
+// staff can write in anyone's name and the portal still shows it as
+// that member's trainer, just without a bio/photo/rate to show.
+const customTrainers = new Map();
+
+function resolveTrainer(name, branchId) {
+  const known = findByName(TRAINERS, name);
+  if (known) return known;
+
+  const trimmed = String(name || '').trim();
+  if (!trimmed) return null;
+
+  const id = `custom-trainer-${trimmed.toLowerCase().replace(/\s+/g, '-')}`;
+  if (!customTrainers.has(id)) {
+    customTrainers.set(id, {
+      id,
+      name: trimmed,
+      branchId: branchId ?? BRANCHES[0]?.id ?? null,
+      gender: 'male',
+      title: 'Personal Trainer',
+      experience: 0,
+      rating: null,
+      ratePerMonth: 0,
+      specialities: [],
+      certifications: [],
+      bio: 'Assigned directly by the front desk.',
+      slots: ['07:00', '18:00'],
+      capacity: 999,
+      booked: 0,
+      custom: true,
+    });
+  }
+  return customTrainers.get(id);
+}
 
 /**
  * Package column accepts either an exact tier name (Monthly, Quarterly,
@@ -161,7 +196,7 @@ function rowToMember(row, prev) {
   if (!id) return null;
   const plan = resolvePackage(row);
   const br = findByName(BRANCHES, row['Branch']);
-  const trFromSheet = findByName(TRAINERS, row['Trainer']);
+  const trFromSheet = resolveTrainer(row['Trainer'], br?.id ?? prev?.branchId);
   const start = parseFlexibleDate(row['Package Start Date']) ?? prev?.startDate ?? iso(today());
   const end = parseFlexibleDate(row['Package End Date']) ?? prev?.expiry ?? iso(addMonths(today(), plan?.months ?? 1));
 
@@ -196,6 +231,32 @@ function rowToMember(row, prev) {
  * in place (logged, never thrown) so a network hiccup can't blank the
  * portal out from under someone.
  */
+/**
+ * The portal shows "Your Trainer" from an active row in raw().bookings,
+ * not straight from member.trainerId — that's how a member who booked a
+ * slot in-app gets a specific time slot attached. A trainer assigned by
+ * staff directly in the Sheet has no such booking, so without this it
+ * would resolve fine but never actually appear anywhere in the UI.
+ */
+function syncTrainerBooking(m) {
+  const bookings = raw().bookings;
+  const existing = bookings.find((b) => b.memberId === m.id && b.status === 'active');
+  if (existing) {
+    if (existing.trainerId === m.trainerId) return;
+    existing.status = 'ended';
+  }
+  if (!m.trainerId) return;
+  const t = trainer(m.trainerId);
+  bookings.push({
+    id: uid('BK'),
+    memberId: m.id,
+    trainerId: m.trainerId,
+    slot: t?.slots?.[0] ?? '07:00',
+    startedOn: m.startDate,
+    status: 'active',
+  });
+}
+
 export async function refreshLiveMembers() {
   if (!MEMBERS_CSV_URL || MEMBERS_CSV_URL.includes('PASTE_YOUR')) return;
   try {
@@ -211,6 +272,7 @@ export async function refreshLiveMembers() {
     if (liveMembers.length === 0) return;
 
     raw().members = liveMembers;
+    liveMembers.forEach(syncTrainerBooking);
     emit();
   } catch (err) {
     console.warn('[store] could not load the live member sheet — staying on last known data', err);

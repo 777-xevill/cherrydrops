@@ -18,7 +18,9 @@ Member Name | Member ID | Package | Package Start Date | Package End Date | Pack
   plain number of months if it's a custom length, e.g. `8` or `8 Months`
 - **Member ID** goes in its own column — don't put it in Package by mistake
 - **Branch** should match a branch name exactly, e.g. `BNS Centre`
-- **Trainer** should match a trainer's name exactly, or leave blank
+- **Trainer** can be any name — matching one of the gym's real trainers
+  shows their full profile; any other name still shows correctly as that
+  member's trainer, just without a bio/photo. Leave blank for none.
 - Dates in `YYYY-MM-DD` format, e.g. `2026-08-15`
 
 Each new row underneath is a new member.
