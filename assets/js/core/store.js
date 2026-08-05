@@ -118,8 +118,9 @@ function resolvePackage(row) {
   const known = findByName(PACKAGES, packageText);
   if (known) return known;
 
-  const source = packageText || row['Package Duration'] || '';
-  const match = /(\d+(?:\.\d+)?)/.exec(source);
+  // A number in Package wins; otherwise fall back to Package Duration
+  // (e.g. Package: "Football" with Duration: "6 months" still resolves).
+  const match = /(\d+(?:\.\d+)?)/.exec(packageText) ?? /(\d+(?:\.\d+)?)/.exec(row['Package Duration'] || '');
   if (!match) return null;
 
   const months = Math.max(1, Math.round(Number(match[1])));
