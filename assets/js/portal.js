@@ -397,7 +397,7 @@ function viewTracker(view, member) {
             </select>
           </div>
           <div>
-            <label class="label" for="t-qty">Qty</label>
+            <label class="label" for="t-qty">Quantity</label>
             <input class="input" id="t-qty" type="number" min="0.25" step="0.25" value="1" required>
           </div>
           <div>
@@ -408,6 +408,7 @@ function viewTracker(view, member) {
           </div>
           <button type="submit" class="btn btn-primary">${icon('sparkle')}Add</button>
         </div>
+        <p class="hint mt-3">Quantity is how many servings you had — the serving size for each food is shown next to its name above (e.g. "Egg, boiled — 1 large"). Enter 2 for two eggs, 0.5 for half a serving, and so on.</p>
       </form>
 
       <div class="card p-5 mb-5 !border-crimson/35">
@@ -423,7 +424,7 @@ function viewTracker(view, member) {
       <div class="card p-0 overflow-hidden">
         <div class="table-wrap">
           <table class="data">
-            <thead><tr><th>Meal</th><th>Food</th><th>Qty</th><th class="num">Calories</th><th class="num">Protein</th><th class="num">Carbs</th><th class="num">Fat</th><th></th></tr></thead>
+            <thead><tr><th>Meal</th><th>Food</th><th>Quantity</th><th class="num">Calories</th><th class="num">Protein</th><th class="num">Carbs</th><th class="num">Fat</th><th></th></tr></thead>
             <tbody>
               ${entries.length ? entries.map((e) => `
                 <tr>
