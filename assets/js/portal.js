@@ -27,6 +27,7 @@ const ROUTES = [
   { id: 'muscle', label: 'Muscle Guide', icon: 'sparkle' },
   { id: 'routine', label: 'Gym Routine', icon: 'box' },
   { id: 'food', label: 'Food Plan', icon: 'sheet' },
+  { id: 'tracker', label: 'Nutrition Tracker', icon: 'chart' },
   { id: 'diet', label: 'Diet Analysis', icon: 'leaf' },
 ];
 
@@ -142,7 +143,7 @@ function renderShell(member, route) {
   const view = $('#view');
   const renderers = {
     overview: viewOverview,
-    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, routine: viewRoutine, food: viewFoodPlan, diet: viewDiet,
+    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, routine: viewRoutine, food: viewFoodPlan, tracker: viewTracker, diet: viewDiet,
   };
   (renderers[route] || viewOverview)(view, member);
 }
@@ -366,6 +367,93 @@ function viewFoodPlan(view, member) {
     $$('[data-food-goal]', view).forEach((b) => b.addEventListener('click', () => {
       activeGoal = b.dataset.foodGoal;
       paint();
+    }));
+  }
+
+  paint();
+}
+
+/* ---------------- daily nutrition tracker ---------------- */
+
+const TRACKER_MEALS = ['Breakfast', 'Lunch', 'Dinner', 'Snack'];
+
+function viewTracker(view, member) {
+  function paint() {
+    const entries = store.nutritionLogFor(member.id);
+    const totals = entries.reduce((t, e) => ({
+      kcal: t.kcal + e.kcal, p: t.p + e.p, c: t.c + e.c, f: t.f + e.f,
+    }), { kcal: 0, p: 0, c: 0, f: 0 });
+
+    view.innerHTML = html`
+      ${viewHead('Nutrition', 'Daily Nutrition Tracker', `Log what you actually eat today — ${esc(fmtDate(new Date()))} — and watch the totals add up.`)}
+
+      <form id="tracker-form" class="card p-5 mb-5">
+        <p class="eyebrow !tracking-[.2em] mb-3">Add Food</p>
+        <div class="grid sm:grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1fr)_auto] gap-3 sm:items-end">
+          <div>
+            <label class="label" for="t-food">Food</label>
+            <select class="select" id="t-food">
+              ${FOODS.map((f) => `<option value="${esc(f.name)}">${esc(f.name)} — ${esc(f.unit)}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="label" for="t-qty">Qty</label>
+            <input class="input" id="t-qty" type="number" min="0.25" step="0.25" value="1" required>
+          </div>
+          <div>
+            <label class="label" for="t-meal">Meal</label>
+            <select class="select" id="t-meal">
+              ${TRACKER_MEALS.map((m) => `<option value="${esc(m)}">${esc(m)}</option>`).join('')}
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">${icon('sparkle')}Add</button>
+        </div>
+      </form>
+
+      <div class="card p-5 mb-5 !border-crimson/35">
+        <p class="eyebrow !tracking-[.2em] !text-crimson-lite mb-3">Today's Totals</p>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div><p class="stat-label">Calories</p><p class="stat-value" style="font-size:1.5rem">${num(totals.kcal)}</p><p class="stat-sub">kcal today</p></div>
+          <div><p class="stat-label">Protein</p><p class="stat-value" style="font-size:1.5rem">${num(totals.p, 1)}g</p></div>
+          <div><p class="stat-label">Carbs</p><p class="stat-value" style="font-size:1.5rem">${num(totals.c, 1)}g</p></div>
+          <div><p class="stat-label">Fat</p><p class="stat-value" style="font-size:1.5rem">${num(totals.f, 1)}g</p></div>
+        </div>
+      </div>
+
+      <div class="card p-0 overflow-hidden">
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Meal</th><th>Food</th><th>Qty</th><th class="num">Calories</th><th class="num">Protein</th><th class="num">Carbs</th><th class="num">Fat</th><th></th></tr></thead>
+            <tbody>
+              ${entries.length ? entries.map((e) => `
+                <tr>
+                  <td>${esc(e.meal)}</td>
+                  <td class="text-white">${esc(e.food)}</td>
+                  <td>${esc(e.qty)}×</td>
+                  <td class="num">${num(e.kcal)} kcal</td>
+                  <td class="num">${num(e.p, 1)}g</td>
+                  <td class="num">${num(e.c, 1)}g</td>
+                  <td class="num">${num(e.f, 1)}g</td>
+                  <td><button type="button" class="btn btn-ghost btn-sm" data-remove="${e.id}" aria-label="Remove ${esc(e.food)}">${icon('x')}</button></td>
+                </tr>
+              `).join('') : '<tr><td colspan="8" class="text-center text-white/45 py-8">Nothing logged yet today.</td></tr>'}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `;
+
+    $('#tracker-form', view).addEventListener('submit', (e) => {
+      e.preventDefault();
+      const food = $('#t-food', view).value;
+      const qty = Number($('#t-qty', view).value) || 1;
+      const meal = $('#t-meal', view).value;
+      store.addNutritionEntry(member.id, { food, qty, meal });
+      toast(`Added ${food}.`, 'good');
+    });
+
+    $$('[data-remove]', view).forEach((b) => b.addEventListener('click', () => {
+      store.removeNutritionEntry(member.id, b.dataset.remove);
     }));
   }
 

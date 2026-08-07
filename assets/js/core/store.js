@@ -11,7 +11,7 @@
    records) has to be re-validated server-side.
    ============================================================ */
 
-import { buildSeed, PACKAGES, BRANCHES, TRAINERS, RENEW_OFFERS, PAYMENT_METHODS } from './seed.js';
+import { buildSeed, PACKAGES, BRANCHES, TRAINERS, FOODS, RENEW_OFFERS, PAYMENT_METHODS } from './seed.js';
 import { iso, addMonths, addDays, today, daysBetween, monthKey, sum, groupBy, uid } from './util.js';
 import { parseCsv } from './csv.js';
 import { MEMBERS_CSV_URL } from './roster-config.js';
@@ -221,6 +221,7 @@ function rowToMember(row, prev) {
     attendance: prev?.attendance ?? [],
     notes: prev?.notes ?? '',
     dietPlan: prev?.dietPlan,
+    nutritionLog: prev?.nutritionLog ?? [],
   };
 }
 
@@ -466,6 +467,44 @@ export function saveDietPlan(memberId, plan) {
   m.dietPlan = { ...plan, savedAt: new Date().toISOString() };
   emit();
   return m.dietPlan;
+}
+
+/* ---------------- daily nutrition tracker ---------------- */
+
+function foodNutrition(name, qty) {
+  const f = FOODS.find((x) => x.name === name);
+  if (!f) return null;
+  return {
+    kcal: Math.round(f.kcal * qty),
+    p: Math.round(f.p * qty * 10) / 10,
+    c: Math.round(f.c * qty * 10) / 10,
+    f: Math.round(f.f * qty * 10) / 10,
+  };
+}
+
+/** What a member has logged for a given day (defaults to today). */
+export function nutritionLogFor(memberId, date = iso(today())) {
+  const m = member(memberId);
+  if (!m) return [];
+  return (m.nutritionLog ?? []).filter((e) => e.date === date);
+}
+
+export function addNutritionEntry(memberId, { food, qty = 1, meal = 'Snack' }) {
+  const m = member(memberId);
+  if (!m) return null;
+  const nutrition = foodNutrition(food, Number(qty) || 1);
+  if (!nutrition) throw new Error(`Unknown food: ${food}`);
+  const entry = { id: uid('NUT'), date: iso(today()), food, qty: Number(qty) || 1, meal, ...nutrition };
+  m.nutritionLog = [...(m.nutritionLog ?? []), entry];
+  emit();
+  return entry;
+}
+
+export function removeNutritionEntry(memberId, entryId) {
+  const m = member(memberId);
+  if (!m) return;
+  m.nutritionLog = (m.nutritionLog ?? []).filter((e) => e.id !== entryId);
+  emit();
 }
 
 /* ---------------- inventory ---------------- */
