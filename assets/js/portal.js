@@ -10,6 +10,7 @@ import { renderMuscleMap } from './core/muscle-map.js';
 import { analyzeDiet, ACTIVITY_LEVELS, GOALS, bmiCategory } from './core/nutrition.js';
 import { MUSCLE_GROUPS, FOODS } from './core/seed.js';
 import { GYM_ROUTINES, defaultRoutineFor } from './core/routines.js';
+import { FOOD_PLANS } from './core/mealplans.js';
 
 store.init();
 store.refreshLiveMembers();
@@ -25,6 +26,7 @@ const ROUTES = [
   { id: 'trainer', label: 'Trainer', icon: 'dumbbell' },
   { id: 'muscle', label: 'Muscle Guide', icon: 'sparkle' },
   { id: 'routine', label: 'Gym Routine', icon: 'box' },
+  { id: 'food', label: 'Food Plan', icon: 'sheet' },
   { id: 'diet', label: 'Diet Analysis', icon: 'leaf' },
 ];
 
@@ -140,7 +142,7 @@ function renderShell(member, route) {
   const view = $('#view');
   const renderers = {
     overview: viewOverview,
-    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, routine: viewRoutine, diet: viewDiet,
+    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, routine: viewRoutine, food: viewFoodPlan, diet: viewDiet,
   };
   (renderers[route] || viewOverview)(view, member);
 }
@@ -295,6 +297,71 @@ function viewRoutine(view, member) {
 
     $$('[data-goal]', view).forEach((b) => b.addEventListener('click', () => {
       activeGoal = b.dataset.goal;
+      paint();
+    }));
+  }
+
+  paint();
+}
+
+/* ---------------- food plan ---------------- */
+
+function viewFoodPlan(view, member) {
+  const goalKeys = Object.keys(FOOD_PLANS);
+  let activeGoal = defaultRoutineFor(member.goal);
+
+  function paint() {
+    const plan = FOOD_PLANS[activeGoal];
+    view.innerHTML = html`
+      ${viewHead('Nutrition', 'Food Plan', plan.blurb)}
+
+      <div class="filters mb-5">
+        <span class="label !mb-0">Goal</span>
+        <div class="seg" id="food-goal-seg">
+          ${goalKeys.map((g) => `<button type="button" data-food-goal="${esc(g)}" aria-pressed="${g === activeGoal}">${esc(g)}</button>`).join('')}
+        </div>
+      </div>
+
+      <div class="card p-5 mb-5 !border-crimson/35">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div><p class="stat-label">Calories</p><p class="stat-value" style="font-size:1.5rem">${num(plan.totals.kcal)}</p><p class="stat-sub">kcal / day</p></div>
+          <div><p class="stat-label">Protein</p><p class="stat-value" style="font-size:1.5rem">${num(plan.totals.p, 1)}g</p></div>
+          <div><p class="stat-label">Carbs</p><p class="stat-value" style="font-size:1.5rem">${num(plan.totals.c, 1)}g</p></div>
+          <div><p class="stat-label">Fat</p><p class="stat-value" style="font-size:1.5rem">${num(plan.totals.f, 1)}g</p></div>
+        </div>
+      </div>
+
+      <div class="grid gap-4">
+        ${plan.meals.map((m) => `
+          <div class="card p-0 overflow-hidden">
+            <div class="flex items-center justify-between gap-3 p-5 pb-3">
+              <h3 class="h-card text-white" style="font-size:1.1rem">${esc(m.name)}</h3>
+              <span class="badge badge-neutral">${num(m.totals.kcal)} kcal</span>
+            </div>
+            <div class="table-wrap">
+              <table class="data">
+                <thead><tr><th>Food</th><th>Serving</th><th class="num">Calories</th><th class="num">Protein</th><th class="num">Carbs</th><th class="num">Fat</th></tr></thead>
+                <tbody>
+                  ${m.items.map((it) => `
+                    <tr>
+                      <td class="text-white">${esc(it.name)}</td>
+                      <td>${esc(it.serving)}</td>
+                      <td class="num">${num(it.kcal)} kcal</td>
+                      <td class="num">${num(it.p, 1)}g</td>
+                      <td class="num">${num(it.c, 1)}g</td>
+                      <td class="num">${num(it.f, 1)}g</td>
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    $$('[data-food-goal]', view).forEach((b) => b.addEventListener('click', () => {
+      activeGoal = b.dataset.foodGoal;
       paint();
     }));
   }
