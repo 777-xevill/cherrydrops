@@ -183,6 +183,14 @@ function parseFlexibleDate(value) {
   return Number.isNaN(d.getTime()) ? null : iso(d);
 }
 
+/** Sheets vary in what they call a column — try each accepted header in turn. */
+function getField(row, ...names) {
+  for (const n of names) {
+    if (row[n] !== undefined && String(row[n]).trim() !== '') return row[n];
+  }
+  return '';
+}
+
 /**
  * Merges one sheet row onto the previous version of that member (if any
  * existed from local seed data or an earlier live fetch). The sheet is
@@ -197,8 +205,8 @@ function rowToMember(row, prev) {
   const plan = resolvePackage(row);
   const br = findByName(BRANCHES, row['Branch']);
   const trFromSheet = resolveTrainer(row['Trainer'], br?.id ?? prev?.branchId);
-  const start = parseFlexibleDate(row['Package Start Date']) ?? prev?.startDate ?? iso(today());
-  const end = parseFlexibleDate(row['Package End Date']) ?? prev?.expiry ?? iso(addMonths(today(), plan?.months ?? 1));
+  const start = parseFlexibleDate(getField(row, 'Package Start Date', 'Starting Date', 'Start Date')) ?? prev?.startDate ?? iso(today());
+  const end = parseFlexibleDate(getField(row, 'Package End Date', 'End Date', 'Ending Date')) ?? prev?.expiry ?? iso(addMonths(today(), plan?.months ?? 1));
 
   return {
     id,
