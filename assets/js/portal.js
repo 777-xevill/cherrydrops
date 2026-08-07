@@ -508,6 +508,12 @@ function openBookModal(memberId, trainerId, onDone) {
 /* ---------------- diet analysis ---------------- */
 
 function viewDiet(view, member) {
+  // Prefer the inputs from the last analysis over the member's base
+  // profile, since saving a plan triggers a full re-render of this view
+  // — without this, the form would snap back to the profile defaults
+  // right after a successful Analyze instead of keeping what was typed.
+  const profile = { ...member, ...(member.dietPlan?.inputs ?? {}) };
+
   view.innerHTML = html`
     ${viewHead('Optional', 'AI Diet Chart Analysis', 'A calorie and macro plan computed from your height, weight and goal — plus a target-muscle guide for your next session.')}
 
@@ -515,24 +521,24 @@ function viewDiet(view, member) {
       <form id="diet-form" class="card p-6 h-fit">
         <p class="eyebrow !tracking-[.2em] mb-4">Your Details</p>
         <div class="grid grid-cols-2 gap-3">
-          <div><label class="label" for="d-height">Height (cm)</label><input class="input" id="d-height" type="number" min="120" max="230" value="${member.heightCm}" required></div>
-          <div><label class="label" for="d-weight">Weight (kg)</label><input class="input" id="d-weight" type="number" min="30" max="220" step="0.1" value="${member.weightKg}" required></div>
-          <div><label class="label" for="d-age">Age</label><input class="input" id="d-age" type="number" min="14" max="80" value="${member.age}" required></div>
+          <div><label class="label" for="d-height">Height (cm)</label><input class="input" id="d-height" type="number" min="120" max="230" value="${profile.heightCm}" required></div>
+          <div><label class="label" for="d-weight">Weight (kg)</label><input class="input" id="d-weight" type="number" min="30" max="220" step="0.1" value="${profile.weightKg}" required></div>
+          <div><label class="label" for="d-age">Age</label><input class="input" id="d-age" type="number" min="14" max="80" value="${profile.age}" required></div>
           <div>
             <label class="label" for="d-gender">Gender</label>
             <select class="select" id="d-gender">
-              <option value="male" ${member.gender === 'male' ? 'selected' : ''}>Male</option>
-              <option value="female" ${member.gender === 'female' ? 'selected' : ''}>Female</option>
+              <option value="male" ${profile.gender === 'male' ? 'selected' : ''}>Male</option>
+              <option value="female" ${profile.gender === 'female' ? 'selected' : ''}>Female</option>
             </select>
           </div>
         </div>
         <label class="label mt-3" for="d-activity">Activity level</label>
         <select class="select" id="d-activity">
-          ${Object.entries(ACTIVITY_LEVELS).map(([id, a]) => `<option value="${id}" ${member.activity === id ? 'selected' : ''}>${esc(a.label)} — ${esc(a.hint)}</option>`).join('')}
+          ${Object.entries(ACTIVITY_LEVELS).map(([id, a]) => `<option value="${id}" ${profile.activity === id ? 'selected' : ''}>${esc(a.label)} — ${esc(a.hint)}</option>`).join('')}
         </select>
         <label class="label mt-3" for="d-goal">Goal</label>
         <select class="select" id="d-goal">
-          ${GOALS.map((g) => `<option value="${esc(g)}" ${member.goal === g ? 'selected' : ''}>${esc(g)}</option>`).join('')}
+          ${GOALS.map((g) => `<option value="${esc(g)}" ${profile.goal === g ? 'selected' : ''}>${esc(g)}</option>`).join('')}
         </select>
         <button type="submit" class="btn btn-primary w-full mt-5">${icon('sparkle')}Analyze</button>
         <p class="hint mt-3">Computed instantly in your browser from standard nutrition formulas (Mifflin-St Jeor BMR, activity-scaled TDEE). No data leaves this device.</p>
