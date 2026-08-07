@@ -229,10 +229,47 @@ function viewOverview(view, member) {
         <button type="button" class="btn btn-ghost btn-sm w-full mt-4" data-go="payments">View all</button>
       </div>
     </div>
+
+    <div class="card p-6 mt-5">
+      <p class="eyebrow !tracking-[.2em] mb-1">Target Muscle Guide</p>
+      <p class="lede mb-4" style="font-size:.95rem">Pick a muscle group to see where it sits and how to train it.</p>
+      <div class="grid md:grid-cols-[220px_minmax(0,1fr)] gap-6">
+        <div id="muscle-canvas" class="flex justify-center"></div>
+        <div>
+          <div class="flex flex-wrap gap-2 mb-4" id="muscle-tabs">
+            ${MUSCLE_GROUPS.map((g, i) => `<button type="button" class="btn btn-ghost btn-sm" data-muscle="${g.id}" data-i="${i}">${esc(g.name)}</button>`).join('')}
+          </div>
+          <div id="muscle-detail"></div>
+        </div>
+      </div>
+    </div>
   `;
 
   sparkline($('.spark-holder', view), member.attendance, { color: 'var(--series-2)' });
   $$('[data-go]', view).forEach((b) => b.addEventListener('click', () => { location.hash = `#/${b.dataset.go}`; }));
+
+  let activeMuscle = MUSCLE_GROUPS[0];
+  function paintMuscle() {
+    renderMuscleMap($('#muscle-canvas', view), { region: activeMuscle.region, activeId: activeMuscle.id });
+    $$('[data-muscle]', view).forEach((b) => b.classList.toggle('!border-crimson', b.dataset.muscle === activeMuscle.id));
+    $('#muscle-detail', view).innerHTML = html`
+      <h4 class="h-card text-white" style="font-size:1.1rem">${esc(activeMuscle.name)}</h4>
+      <p class="text-white/60 text-sm mt-1.5 leading-relaxed">${esc(activeMuscle.summary)}</p>
+      <div class="table-wrap mt-4">
+        <table class="data">
+          <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Cue</th></tr></thead>
+          <tbody>
+            ${activeMuscle.exercises.map((ex) => `<tr><td class="text-white">${esc(ex.name)}</td><td>${esc(ex.sets)}</td><td>${esc(ex.cue)}</td></tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  }
+  $$('[data-muscle]', view).forEach((b) => b.addEventListener('click', () => {
+    activeMuscle = MUSCLE_GROUPS[Number(b.dataset.i)];
+    paintMuscle();
+  }));
+  paintMuscle();
 }
 
 /* ---------------- gym info & history ---------------- */
@@ -546,20 +583,6 @@ function viewDiet(view, member) {
 
       <div id="diet-result"></div>
     </div>
-
-    <div class="card p-6 mt-5">
-      <p class="eyebrow !tracking-[.2em] mb-1">Target Muscle Guide</p>
-      <p class="lede mb-4" style="font-size:.95rem">Pick a muscle group to see where it sits and how to train it.</p>
-      <div class="grid md:grid-cols-[220px_minmax(0,1fr)] gap-6">
-        <div id="muscle-canvas" class="flex justify-center"></div>
-        <div>
-          <div class="flex flex-wrap gap-2 mb-4" id="muscle-tabs">
-            ${MUSCLE_GROUPS.map((g, i) => `<button type="button" class="btn btn-ghost btn-sm" data-muscle="${g.id}" data-i="${i}">${esc(g.name)}</button>`).join('')}
-          </div>
-          <div id="muscle-detail"></div>
-        </div>
-      </div>
-    </div>
   `;
 
   $('#diet-form', view).addEventListener('submit', (e) => {
@@ -579,29 +602,6 @@ function viewDiet(view, member) {
 
   if (member.dietPlan) renderDietResult($('#diet-result', view), member.dietPlan.result);
   else $('#diet-result', view).innerHTML = '<div class="card p-6 h-full flex items-center justify-center text-white/45 text-sm">Fill in your details and press Analyze.</div>';
-
-  let activeMuscle = MUSCLE_GROUPS[0];
-  function paintMuscle() {
-    renderMuscleMap($('#muscle-canvas', view), { region: activeMuscle.region, activeId: activeMuscle.id });
-    $$('[data-muscle]', view).forEach((b) => b.classList.toggle('!border-crimson', b.dataset.muscle === activeMuscle.id));
-    $('#muscle-detail', view).innerHTML = html`
-      <h4 class="h-card text-white" style="font-size:1.1rem">${esc(activeMuscle.name)}</h4>
-      <p class="text-white/60 text-sm mt-1.5 leading-relaxed">${esc(activeMuscle.summary)}</p>
-      <div class="table-wrap mt-4">
-        <table class="data">
-          <thead><tr><th>Exercise</th><th>Sets × Reps</th><th>Cue</th></tr></thead>
-          <tbody>
-            ${activeMuscle.exercises.map((ex) => `<tr><td class="text-white">${esc(ex.name)}</td><td>${esc(ex.sets)}</td><td>${esc(ex.cue)}</td></tr>`).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
-  }
-  $$('[data-muscle]', view).forEach((b) => b.addEventListener('click', () => {
-    activeMuscle = MUSCLE_GROUPS[Number(b.dataset.i)];
-    paintMuscle();
-  }));
-  paintMuscle();
 }
 
 function renderDietResult(container, result) {
