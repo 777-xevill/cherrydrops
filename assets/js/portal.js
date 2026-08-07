@@ -24,6 +24,7 @@ const ROUTES = [
   { id: 'location', label: 'Location & Contact', icon: 'pin' },
   { id: 'packages', label: 'Packages & Renew', icon: 'card' },
   { id: 'trainer', label: 'Trainer', icon: 'dumbbell' },
+  { id: 'muscle', label: 'Muscle Guide', icon: 'sparkle' },
   { id: 'diet', label: 'Diet Analysis', icon: 'leaf' },
   { id: 'payments', label: 'Payments', icon: 'chart' },
 ];
@@ -140,7 +141,7 @@ function renderShell(member, route) {
   const view = $('#view');
   const renderers = {
     overview: viewOverview, gym: viewGym, location: viewLocation,
-    packages: viewPackages, trainer: viewTrainer, diet: viewDiet, payments: viewPayments,
+    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, diet: viewDiet, payments: viewPayments,
   };
   (renderers[route] || viewOverview)(view, member);
 }
@@ -174,20 +175,6 @@ function viewOverview(view, member) {
 
   view.innerHTML = html`
     ${viewHead('Your Account', `Hi, ${member.name.split(' ')[0]}`, `Everything about your membership at ${branch?.name ?? 'Cherry Drops'} in one place.`)}
-
-    <div class="card p-6 mb-5">
-      <p class="eyebrow !tracking-[.2em] mb-1">Target Muscle Guide</p>
-      <p class="lede mb-4" style="font-size:.95rem">Pick a muscle group to see where it sits and how to train it.</p>
-      <div class="grid md:grid-cols-[220px_minmax(0,1fr)] gap-6">
-        <div id="muscle-canvas" class="flex justify-center"></div>
-        <div>
-          <div class="flex flex-wrap gap-2 mb-4" id="muscle-tabs">
-            ${MUSCLE_GROUPS.map((g, i) => `<button type="button" class="btn btn-ghost btn-sm" data-muscle="${g.id}" data-i="${i}">${esc(g.name)}</button>`).join('')}
-          </div>
-          <div id="muscle-detail"></div>
-        </div>
-      </div>
-    </div>
 
     <div class="grid-auto mb-5">
       <div class="card stat">
@@ -247,6 +234,26 @@ function viewOverview(view, member) {
 
   sparkline($('.spark-holder', view), member.attendance, { color: 'var(--series-2)' });
   $$('[data-go]', view).forEach((b) => b.addEventListener('click', () => { location.hash = `#/${b.dataset.go}`; }));
+}
+
+/* ---------------- target muscle guide ---------------- */
+
+function viewMuscle(view) {
+  view.innerHTML = html`
+    ${viewHead('Training', 'Target Muscle Guide', 'Pick a muscle group to see where it sits and how to train it.')}
+
+    <div class="card p-6">
+      <div class="grid md:grid-cols-[220px_minmax(0,1fr)] gap-6">
+        <div id="muscle-canvas" class="flex justify-center"></div>
+        <div>
+          <div class="flex flex-wrap gap-2 mb-4" id="muscle-tabs">
+            ${MUSCLE_GROUPS.map((g, i) => `<button type="button" class="btn btn-ghost btn-sm" data-muscle="${g.id}" data-i="${i}">${esc(g.name)}</button>`).join('')}
+          </div>
+          <div id="muscle-detail"></div>
+        </div>
+      </div>
+    </div>
+  `;
 
   let activeMuscle = MUSCLE_GROUPS[0];
   function paintMuscle() {
