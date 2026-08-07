@@ -9,6 +9,7 @@ import { sparkline, lineChart, stackedBar100 } from './core/charts.js';
 import { renderMuscleMap } from './core/muscle-map.js';
 import { analyzeDiet, ACTIVITY_LEVELS, GOALS, bmiCategory } from './core/nutrition.js';
 import { MUSCLE_GROUPS, FOODS } from './core/seed.js';
+import { GYM_ROUTINES, defaultRoutineFor } from './core/routines.js';
 
 store.init();
 store.refreshLiveMembers();
@@ -23,8 +24,8 @@ const ROUTES = [
   { id: 'packages', label: 'Packages & Renew', icon: 'card' },
   { id: 'trainer', label: 'Trainer', icon: 'dumbbell' },
   { id: 'muscle', label: 'Muscle Guide', icon: 'sparkle' },
+  { id: 'routine', label: 'Gym Routine', icon: 'box' },
   { id: 'diet', label: 'Diet Analysis', icon: 'leaf' },
-  { id: 'payments', label: 'Payments', icon: 'chart' },
 ];
 
 function currentRoute() {
@@ -139,7 +140,7 @@ function renderShell(member, route) {
   const view = $('#view');
   const renderers = {
     overview: viewOverview,
-    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, diet: viewDiet, payments: viewPayments,
+    packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, routine: viewRoutine, diet: viewDiet,
   };
   (renderers[route] || viewOverview)(view, member);
 }
@@ -159,15 +160,12 @@ function viewHead(eyebrow, title, sub) {
   `;
 }
 
-const methodSwatch = (id) => store.paymentMethod(id)?.color ?? 'var(--bronze)';
-
 /* ---------------- overview ---------------- */
 
 function viewOverview(view, member) {
   const status = store.membershipStatus(member);
   const branch = store.branch(member.branchId);
   const plan = store.pkg(member.packageId);
-  const recentPayments = store.paymentsFor(member.id).slice(0, 5);
   const trainerBooking = store.activeBooking(member.id);
   const trainer = trainerBooking ? store.trainer(trainerBooking.trainerId) : null;
 
@@ -199,33 +197,13 @@ function viewOverview(view, member) {
       </div>
     </div>
 
-    <div class="grid gap-5 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-      <div class="card p-6">
-        <p class="eyebrow !tracking-[.2em]">Quick Actions</p>
-        <div class="grid sm:grid-cols-2 gap-3 mt-4">
-          <button type="button" class="btn btn-primary" data-go="packages">${icon('card')}Renew Membership</button>
-          <button type="button" class="btn btn-ghost" data-go="trainer">${icon('dumbbell')}${trainer ? 'Manage Trainer' : 'Book a Trainer'}</button>
-          <button type="button" class="btn btn-ghost" data-go="diet">${icon('leaf')}Diet Analysis</button>
-          <button type="button" class="btn btn-ghost" data-go="payments">${icon('chart')}Payment History</button>
-        </div>
-      </div>
-
-      <div class="card p-6">
-        <p class="eyebrow !tracking-[.2em]">Recent Payments</p>
-        ${recentPayments.length ? html`
-          <ul class="mt-4 grid gap-3">
-            ${recentPayments.map((p) => `
-              <li class="flex items-center justify-between gap-3 text-sm">
-                <span class="flex items-center gap-2 text-white/75">
-                  <span class="swatch inline-block w-2.5 h-2.5 rounded-sm" style="background:${methodSwatch(p.method)}"></span>
-                  ${esc(fmtDate(p.date))}
-                </span>
-                <span class="text-white font-semibold">${esc(money(p.amount))}</span>
-              </li>
-            `).join('')}
-          </ul>
-        ` : '<p class="text-white/50 mt-4 text-sm">No payments recorded yet.</p>'}
-        <button type="button" class="btn btn-ghost btn-sm w-full mt-4" data-go="payments">View all</button>
+    <div class="card p-6">
+      <p class="eyebrow !tracking-[.2em]">Quick Actions</p>
+      <div class="grid sm:grid-cols-2 gap-3 mt-4">
+        <button type="button" class="btn btn-primary" data-go="packages">${icon('card')}Renew Membership</button>
+        <button type="button" class="btn btn-ghost" data-go="trainer">${icon('dumbbell')}${trainer ? 'Manage Trainer' : 'Book a Trainer'}</button>
+        <button type="button" class="btn btn-ghost" data-go="diet">${icon('leaf')}Diet Analysis</button>
+        <button type="button" class="btn btn-ghost" data-go="routine">${icon('box')}Gym Routine</button>
       </div>
     </div>
   `;
@@ -275,6 +253,53 @@ function viewMuscle(view) {
     paintMuscle();
   }));
   paintMuscle();
+}
+
+/* ---------------- gym routine ---------------- */
+
+function viewRoutine(view, member) {
+  const goalKeys = Object.keys(GYM_ROUTINES);
+  let activeGoal = defaultRoutineFor(member.goal);
+
+  function paint() {
+    const plan = GYM_ROUTINES[activeGoal];
+    view.innerHTML = html`
+      ${viewHead('Training', 'Gym Routine', plan.summary)}
+
+      <div class="filters mb-5">
+        <span class="label !mb-0">Goal</span>
+        <div class="seg" id="goal-seg">
+          ${goalKeys.map((g) => `<button type="button" data-goal="${esc(g)}" aria-pressed="${g === activeGoal}">${esc(g)}</button>`).join('')}
+        </div>
+      </div>
+
+      <div class="grid gap-4">
+        ${plan.days.map((d) => `
+          <div class="card p-5">
+            <p class="eyebrow !tracking-[.2em]">${esc(d.day)}</p>
+            <h3 class="h-card text-white mt-1" style="font-size:1.1rem">${esc(d.focus)}</h3>
+            ${d.exercises ? `
+              <div class="table-wrap mt-3">
+                <table class="data">
+                  <thead><tr><th>Exercise</th><th>Sets × Reps</th></tr></thead>
+                  <tbody>
+                    ${d.exercises.map((ex) => `<tr><td class="text-white">${esc(ex.name)}</td><td>${esc(ex.sets)}</td></tr>`).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : `<p class="text-white/60 text-sm mt-3 leading-relaxed">${esc(d.note)}</p>`}
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    $$('[data-goal]', view).forEach((b) => b.addEventListener('click', () => {
+      activeGoal = b.dataset.goal;
+      paint();
+    }));
+  }
+
+  paint();
 }
 
 /* ---------------- packages & renew ---------------- */
@@ -593,29 +618,3 @@ function renderDietResult(container, result) {
   });
 }
 
-/* ---------------- payments ---------------- */
-
-function viewPayments(view, member) {
-  const rows = store.paymentsFor(member.id);
-  view.innerHTML = html`
-    ${viewHead('History', 'Payment History', `${rows.length} payment${rows.length === 1 ? '' : 's'} on record.`)}
-    <div class="card p-0">
-      <div class="table-wrap">
-        <table class="data">
-          <thead><tr><th>Date</th><th>Item</th><th>Method</th><th>Reference</th><th class="num">Amount</th></tr></thead>
-          <tbody>
-            ${rows.length ? rows.map((p) => `
-              <tr>
-                <td>${esc(fmtDate(p.date))}</td>
-                <td class="text-white">${p.packageId === 'pt' ? 'Personal Training' : esc(store.pkg(p.packageId)?.name ?? p.packageId)}</td>
-                <td><span class="swatch inline-block w-2.5 h-2.5 rounded-sm mr-1.5" style="background:${methodSwatch(p.method)}"></span>${esc(store.paymentMethod(p.method)?.name ?? p.method)}</td>
-                <td class="text-white/50">${esc(p.reference)}</td>
-                <td class="num text-white">${esc(money(p.amount))}${p.discountPct ? `<span class="block text-xs text-good">-${p.discountPct}% applied</span>` : ''}</td>
-              </tr>
-            `).join('') : '<tr><td colspan="5" class="text-center text-white/45 py-8">No payments yet.</td></tr>'}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
