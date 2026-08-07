@@ -8,7 +8,7 @@ import { $, $$, html, esc, icon, money, fmtDate, fmtDateTime, pct, num, toast, c
 import { sparkline, lineChart, stackedBar100 } from './core/charts.js';
 import { renderMuscleMap } from './core/muscle-map.js';
 import { analyzeDiet, ACTIVITY_LEVELS, GOALS, bmiCategory } from './core/nutrition.js';
-import { GYM_PROFILE, MUSCLE_GROUPS, FOODS } from './core/seed.js';
+import { MUSCLE_GROUPS, FOODS } from './core/seed.js';
 
 store.init();
 store.refreshLiveMembers();
@@ -20,8 +20,6 @@ const app = $('#app');
 
 const ROUTES = [
   { id: 'overview', label: 'Overview', icon: 'home' },
-  { id: 'gym', label: 'Gym & History', icon: 'sparkle' },
-  { id: 'location', label: 'Location & Contact', icon: 'pin' },
   { id: 'packages', label: 'Packages & Renew', icon: 'card' },
   { id: 'trainer', label: 'Trainer', icon: 'dumbbell' },
   { id: 'muscle', label: 'Muscle Guide', icon: 'sparkle' },
@@ -140,7 +138,7 @@ function renderShell(member, route) {
 
   const view = $('#view');
   const renderers = {
-    overview: viewOverview, gym: viewGym, location: viewLocation,
+    overview: viewOverview,
     packages: viewPackages, trainer: viewTrainer, muscle: viewMuscle, diet: viewDiet, payments: viewPayments,
   };
   (renderers[route] || viewOverview)(view, member);
@@ -277,75 +275,6 @@ function viewMuscle(view) {
     paintMuscle();
   }));
   paintMuscle();
-}
-
-/* ---------------- gym info & history ---------------- */
-
-function viewGym(view) {
-  view.innerHTML = html`
-    ${viewHead('The Gym', 'Info & History', 'How Cherry Drops got here, and what the standard actually means.')}
-
-    <div class="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] gap-5">
-      <div class="card p-6">
-        <p class="eyebrow !tracking-[.2em]">Founder</p>
-        <h3 class="h-card mt-2 text-white" style="font-size:1.4rem">${esc(GYM_PROFILE.founder)}</h3>
-        <p class="lede mt-3">Cherry Drops was built around one standard — equipment that works, rooms that are genuinely clean, and members treated like people rather than subscriptions.</p>
-        <p class="mt-5 font-display text-lg tracking-[.14em] uppercase ember">${esc(GYM_PROFILE.tagline)}</p>
-
-        <p class="eyebrow !tracking-[.2em] mt-7">Amenities</p>
-        <ul class="mt-3 grid gap-2">
-          ${GYM_PROFILE.amenities.map((a) => `<li class="flex gap-2.5 text-sm text-white/75"><span class="text-crimson-lite mt-0.5">${icon('check', 'w-4 h-4 shrink-0')}</span>${esc(a)}</li>`).join('')}
-        </ul>
-      </div>
-
-      <div class="card p-6">
-        <p class="eyebrow !tracking-[.2em]">Timeline</p>
-        <ol class="mt-4 grid gap-5">
-          ${GYM_PROFILE.history.map((h) => `
-            <li class="flex gap-4">
-              <span class="font-display text-2xl font-extrabold text-bronze w-16 shrink-0">${esc(h.year)}</span>
-              <span>
-                <span class="block text-white font-semibold">${esc(h.title)}</span>
-                <span class="block text-sm text-white/60 mt-1 leading-relaxed">${esc(h.body)}</span>
-              </span>
-            </li>
-          `).join('')}
-        </ol>
-      </div>
-    </div>
-  `;
-}
-
-/* ---------------- location & contacts ---------------- */
-
-function viewLocation(view, member) {
-  view.innerHTML = html`
-    ${viewHead('Visit Us', 'Location & Contacts', 'Both branches share one membership, one standard.')}
-    <div class="grid md:grid-cols-2 gap-5">
-      ${store.branches().map((b) => `
-        <div class="card p-6 ${b.id === member.branchId ? '!border-crimson/40' : ''}">
-          <div class="flex items-center justify-between gap-3">
-            <p class="eyebrow !tracking-[.2em] ${b.id === member.branchId ? '!text-crimson-lite' : ''}">${esc(b.role)}</p>
-            ${b.id === member.branchId ? '<span class="badge badge-neutral">Your Branch</span>' : ''}
-          </div>
-          <h3 class="h-card mt-2 text-white" style="font-size:1.4rem">${esc(b.name)}</h3>
-          <p class="mt-2 text-white/70 leading-relaxed text-sm">${esc(b.address)}</p>
-          <div class="mt-4 grid gap-2 text-sm">
-            ${b.hours.map((h) => `<p class="text-white/60"><span class="text-bronze">${esc(h.days)}:</span> ${esc(h.open)}</p>`).join('')}
-          </div>
-          <div class="mt-5 flex flex-wrap gap-2.5">
-            <a href="tel:+880${b.phone.replace(/\D/g, '').slice(1)}" class="btn btn-ghost btn-sm">${icon('phone')}${esc(b.phone)}</a>
-            <a href="${esc(b.maps)}" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">${icon('pin')}Open in Maps</a>
-          </div>
-        </div>
-      `).join('')}
-    </div>
-    <div class="card p-6 mt-5">
-      <p class="eyebrow !tracking-[.2em]">Head Office</p>
-      <p class="mt-2 text-white/70 text-sm">${icon('phone', 'inline w-4 h-4 mr-1.5 -mt-0.5')}<a href="tel:+8801610021342" class="hover:text-white">${esc(GYM_PROFILE.phone)}</a></p>
-      <p class="mt-1 text-white/70 text-sm">${icon('sheet', 'inline w-4 h-4 mr-1.5 -mt-0.5')}<a href="mailto:${esc(GYM_PROFILE.email)}" class="hover:text-white">${esc(GYM_PROFILE.email)}</a></p>
-    </div>
-  `;
 }
 
 /* ---------------- packages & renew ---------------- */
