@@ -339,8 +339,6 @@ function viewFoodPlan(view, member) {
               <div class="flex flex-wrap gap-1.5 justify-end">
                 <span class="badge badge-neutral">${num(m.totals.kcal)} kcal</span>
                 <span class="badge badge-neutral">${num(m.totals.p, 1)}g protein</span>
-                <span class="badge badge-neutral">${num(m.totals.c, 1)}g carbs</span>
-                <span class="badge badge-neutral">${num(m.totals.f, 1)}g fat</span>
               </div>
             </div>
             <div class="table-wrap">
