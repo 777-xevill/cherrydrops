@@ -175,6 +175,20 @@ function viewOverview(view, member) {
   view.innerHTML = html`
     ${viewHead('Your Account', `Hi, ${member.name.split(' ')[0]}`, `Everything about your membership at ${branch?.name ?? 'Cherry Drops'} in one place.`)}
 
+    <div class="card p-6 mb-5">
+      <p class="eyebrow !tracking-[.2em] mb-1">Target Muscle Guide</p>
+      <p class="lede mb-4" style="font-size:.95rem">Pick a muscle group to see where it sits and how to train it.</p>
+      <div class="grid md:grid-cols-[220px_minmax(0,1fr)] gap-6">
+        <div id="muscle-canvas" class="flex justify-center"></div>
+        <div>
+          <div class="flex flex-wrap gap-2 mb-4" id="muscle-tabs">
+            ${MUSCLE_GROUPS.map((g, i) => `<button type="button" class="btn btn-ghost btn-sm" data-muscle="${g.id}" data-i="${i}">${esc(g.name)}</button>`).join('')}
+          </div>
+          <div id="muscle-detail"></div>
+        </div>
+      </div>
+    </div>
+
     <div class="grid-auto mb-5">
       <div class="card stat">
         <p class="stat-label">Status</p>
@@ -227,20 +241,6 @@ function viewOverview(view, member) {
           </ul>
         ` : '<p class="text-white/50 mt-4 text-sm">No payments recorded yet.</p>'}
         <button type="button" class="btn btn-ghost btn-sm w-full mt-4" data-go="payments">View all</button>
-      </div>
-    </div>
-
-    <div class="card p-6 mt-5">
-      <p class="eyebrow !tracking-[.2em] mb-1">Target Muscle Guide</p>
-      <p class="lede mb-4" style="font-size:.95rem">Pick a muscle group to see where it sits and how to train it.</p>
-      <div class="grid md:grid-cols-[220px_minmax(0,1fr)] gap-6">
-        <div id="muscle-canvas" class="flex justify-center"></div>
-        <div>
-          <div class="flex flex-wrap gap-2 mb-4" id="muscle-tabs">
-            ${MUSCLE_GROUPS.map((g, i) => `<button type="button" class="btn btn-ghost btn-sm" data-muscle="${g.id}" data-i="${i}">${esc(g.name)}</button>`).join('')}
-          </div>
-          <div id="muscle-detail"></div>
-        </div>
       </div>
     </div>
   `;
