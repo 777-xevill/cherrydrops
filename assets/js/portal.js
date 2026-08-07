@@ -334,9 +334,14 @@ function viewFoodPlan(view, member) {
       <div class="grid gap-4">
         ${plan.meals.map((m) => `
           <div class="card p-0 overflow-hidden">
-            <div class="flex items-center justify-between gap-3 p-5 pb-3">
+            <div class="flex items-center justify-between gap-3 p-5 pb-3 flex-wrap">
               <h3 class="h-card text-white" style="font-size:1.1rem">${esc(m.name)}</h3>
-              <span class="badge badge-neutral">${num(m.totals.kcal)} kcal</span>
+              <div class="flex flex-wrap gap-1.5 justify-end">
+                <span class="badge badge-neutral">${num(m.totals.kcal)} kcal</span>
+                <span class="badge badge-neutral">${num(m.totals.p, 1)}g protein</span>
+                <span class="badge badge-neutral">${num(m.totals.c, 1)}g carbs</span>
+                <span class="badge badge-neutral">${num(m.totals.f, 1)}g fat</span>
+              </div>
             </div>
             <div class="table-wrap">
               <table class="data">
